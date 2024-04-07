@@ -31,3 +31,25 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Font Family */
+@font-face {
+  font-family: "Figtree-Bold";
+  src: url("../public/fonts/Figtree-Bold.ttf");
+}
+@font-face {
+  font-family: "Figtree-SemiBold";
+  src: url("../public/fonts/Figtree-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Figtree-Medium";
+  src: url("../public/fonts/Figtree-Medium.ttf");
+}
+@font-face {
+  font-family: "Figtree-Regular";
+  src: url("../public/fonts/Figtree-Regular.ttf");
+}
+@font-face {
+  font-family: "Figtree-Light";
+  src: url("../public/fonts/Figtree-Light.ttf");
+}
