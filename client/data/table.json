@@ -1,0 +1,50 @@
+{
+  "stocks": {
+    "width": ["80px", "150px", "100px", "100px", "100px", "100px"],
+    "headers": [
+      "S. No",
+      "Item Name",
+      "SKU (Part Number)",
+      "Opening Stocks",
+      "Stocks On Hand",
+      "Price"
+    ],
+    "data": [
+      {
+        "itemName": "Apple",
+        "sku": "1000",
+        "openingStocks": 50,
+        "stockOnHand": 40,
+        "price": 49
+      },
+      {
+        "itemName": "Kurkure",
+        "sku": "1001",
+        "openingStocks": 100,
+        "stockOnHand": 49,
+        "price": 20
+      },
+      {
+        "itemName": "Biscuit",
+        "sku": "1002",
+        "openingStocks": 400,
+        "stockOnHand": 340,
+        "price": 30
+      },
+      {
+        "itemName": "Tiffin Box",
+        "sku": "1003",
+        "openingStocks": 30,
+        "stockOnHand": 25,
+        "price": 500
+      },
+      {
+        "itemName": "Pillow",
+        "sku": "1004",
+        "openingStocks": 40,
+        "stockOnHand": 25,
+        "price": 200
+      }
+    ]
+  }
+}
