@@ -4,23 +4,17 @@ import React from "react";
 import { useState } from "react";
 import arrow from "../../../public/images/down_arrow.png";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 function Sidebar() {
-  const [isSalesClicked, setSalesClick] = useState(false);
-  const [isPurchaseClicked, setPurchaseClick] = useState(false);
-  const [activeItem, setActiveItem] = useState("");
+  const pathname = usePathname();
 
-  const handleDropdownOptionClick = (event: any) => {
-    event.preventDefault();
-    const router = useRouter();
-    const href = event.target.getAttribute("href");
-    router.push(href);
-  };
-
-  const handleItemClick = (item: any) => {
-    setActiveItem(item);
-  };
+  const [isSalesClicked, setSalesClick] = useState<boolean>(
+    pathname.includes("sales")
+  );
+  const [isPurchaseClicked, setPurchaseClick] = useState<boolean>(
+    pathname.includes("purchases")
+  );
 
   return (
     <div className="flex-row rounded-lg h-screen bg-green-50 w-52">
@@ -28,8 +22,7 @@ function Sidebar() {
         <div className="p-5 font-semibold font-serif">Dashboard</div>
         <a
           href="/stocks"
-          onClick={() => handleItemClick("stocks")}
-          className={`${activeItem === "stocks" ? "font-['Figtree-Bold']" : ""} border-b p-1 border-[#F0F0EF] block hover:bg-gray-400`}
+          className={`${pathname === "/stocks" && "font-['Figtree-Bold']"} border-b p-1 border-[#F0F0EF] block hover:bg-gray-400`}
         >
           Stock
         </a>
@@ -52,14 +45,13 @@ function Sidebar() {
           <div className="ml-10 mr-5 rounded-lg text-lg">
             <a
               href="/sales/customers"
-              onClick={handleDropdownOptionClick}
-              className="border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 "
+              className={`border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 ${pathname == "/sales/customers" && "font-['Figtree-Bold']"}`}
             >
               Customer
             </a>
             <a
               href="/sales/invoices"
-              className="border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 "
+              className={`border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 ${pathname == "/sales/invoices" && "font-['Figtree-Bold']"}`}
             >
               Invoices
             </a>
@@ -84,13 +76,13 @@ function Sidebar() {
           <div className="ml-10 mr-5 rounded-lg text-lg">
             <a
               href="/purchases/vendors"
-              className="border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 "
+              className={`border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 ${pathname == "/purchases/vendors" && "font-['Figtree-Bold']"}`}
             >
               Vendors
             </a>
             <a
               href="/purchases/bills"
-              className="border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 "
+              className={`border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 ${pathname == "/purchases/bills" && "font-['Figtree-Bold']"}`}
             >
               Bills
             </a>
@@ -99,7 +91,7 @@ function Sidebar() {
 
         <a
           href="/reports"
-          className="border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 "
+          className={`${pathname === "/reports" && "font-['Figtree-Bold']"} border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 `}
         >
           Report
         </a>
