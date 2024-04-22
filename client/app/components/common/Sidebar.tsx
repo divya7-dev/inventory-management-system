@@ -17,18 +17,18 @@ function Sidebar() {
   );
 
   return (
-    <div className="flex-row rounded-lg h-screen bg-green-50 w-52">
-      <div className="text-lg gap-x-1.5 items-center text-black rounded-lg font-['Figtree-Regular'] ml-5">
+    <div className="flex-row rounded-lg h-screen bg-[#F3F8ED] w-52">
+      <div className="text-[14px] gap-x-1.5 items-center text-[#050505] rounded-lg font-['Figtree-Regular'] ml-5">
         <div className="p-5 font-semibold font-serif">Dashboard</div>
         <a
           href="/stocks"
-          className={`${pathname === "/stocks" && "font-['Figtree-Bold']"} border-b p-1 border-[#F0F0EF] block hover:bg-gray-400`}
+          className={`${pathname === "/stocks" && "font-['Figtree-Bold']"} border-b p-1 border-[#F0F0EF] block hover:bg-[#80B537]`}
         >
           Stock
         </a>
 
         <div
-          className={`flex border-b p-1 border-[#F0F0EF] hover:bg-gray-400 cursor-pointer `}
+          className={`flex border-b p-1 border-[#F0F0EF] hover:bg-[#80B537] cursor-pointer `}
           onClick={() => {
             setSalesClick(!isSalesClicked);
           }}
@@ -42,16 +42,16 @@ function Sidebar() {
           />
         </div>
         {isSalesClicked && (
-          <div className="ml-10 mr-5 rounded-lg text-lg">
+          <div className="ml-10 mr-5 rounded-lg text-[14px]">
             <a
               href="/sales/customers"
-              className={`border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 ${pathname == "/sales/customers" && "font-['Figtree-Bold']"}`}
+              className={`border-b p-1 border-[#F0F0EF] block hover:bg-[#80B537] ${pathname == "/sales/customers" && "font-['Figtree-Bold']"}`}
             >
               Customer
             </a>
             <a
               href="/sales/invoices"
-              className={`border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 ${pathname == "/sales/invoices" && "font-['Figtree-Bold']"}`}
+              className={`border-b p-1 border-[#F0F0EF] block hover:bg-[#80B537] ${pathname == "/sales/invoices" && "font-['Figtree-Bold']"}`}
             >
               Invoices
             </a>
@@ -59,7 +59,7 @@ function Sidebar() {
         )}
 
         <div
-          className={`flex border-b p-1 border-[#F0F0EF] hover:bg-gray-400 cursor-pointer `}
+          className={`flex border-b p-1 border-[#F0F0EF] hover:bg-[#80B537] cursor-pointer `}
           onClick={() => {
             setPurchaseClick(!isPurchaseClicked);
           }}
@@ -73,16 +73,16 @@ function Sidebar() {
           />
         </div>
         {isPurchaseClicked && (
-          <div className="ml-10 mr-5 rounded-lg text-lg">
+          <div className="ml-10 mr-5 rounded-lg text-[14px]">
             <a
               href="/purchases/vendors"
-              className={`border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 ${pathname == "/purchases/vendors" && "font-['Figtree-Bold']"}`}
+              className={`border-b p-1 border-[#F0F0EF] block hover:bg-[#80B537] ${pathname == "/purchases/vendors" && "font-['Figtree-Bold']"}`}
             >
               Vendors
             </a>
             <a
               href="/purchases/bills"
-              className={`border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 ${pathname == "/purchases/bills" && "font-['Figtree-Bold']"}`}
+              className={`border-b p-1 border-[#F0F0EF] block hover:bg-[#80B537] ${pathname == "/purchases/bills" && "font-['Figtree-Bold']"}`}
             >
               Bills
             </a>
@@ -91,7 +91,7 @@ function Sidebar() {
 
         <a
           href="/reports"
-          className={`${pathname === "/reports" && "font-['Figtree-Bold']"} border-b p-1 border-[#F0F0EF] block hover:bg-gray-400 `}
+          className={`${pathname === "/reports" && "font-['Figtree-Bold']"} border-b p-1 border-[#F0F0EF] block hover:bg-[#80B537] `}
         >
           Report
         </a>
