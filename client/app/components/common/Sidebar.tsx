@@ -10,10 +10,10 @@ function Sidebar() {
   const pathname = usePathname();
 
   const [isSalesClicked, setSalesClick] = useState<boolean>(
-    pathname.includes("sales")
+    pathname.includes("sales"),
   );
   const [isPurchaseClicked, setPurchaseClick] = useState<boolean>(
-    pathname.includes("purchases")
+    pathname.includes("purchases"),
   );
 
   return (

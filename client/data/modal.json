@@ -1,0 +1,32 @@
+{
+  "stocks": {
+    "header": "Add Stock",
+    "fields": [
+      {
+        "name": "Item Name",
+        "type": "text",
+        "key": "item_name"
+      },
+      {
+        "name": "Part Number",
+        "type": "text",
+        "key": "part_number"
+      },
+      {
+        "name": "Opening Stocks",
+        "type": "number",
+        "key": "opening_stocks"
+      },
+      {
+        "name": "Stocks On Hand",
+        "type": "number",
+        "key": "stocks_on_hand"
+      },
+      {
+        "name": "Price",
+        "type": "text",
+        "key": "price"
+      }
+    ]
+  }
+}

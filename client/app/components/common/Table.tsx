@@ -31,7 +31,7 @@ export default function Table({ tableData }: { tableData: ObjectData }) {
               </td>
               {Object.keys(tableObj).map((item: string, childIndex: number) => (
                 <td
-                    key={childIndex}
+                  key={childIndex}
                   className="text-left text-[14px] font-['Figtree-Regular'] pl-4 py-2"
                   style={{ maxWidth: tableData.width[childIndex] }}
                 >
