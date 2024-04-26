@@ -1,6 +1,6 @@
-import { getStocks, addStocks } from "../../database.js";
+import { getStocks, addStocks, updateStocks } from "../../database.js";
 
-class StockService {
+class StocksService {
   getStocks = async () => {
     try {
       let data = await getStocks();
@@ -29,6 +29,20 @@ class StockService {
       throw error;
     }
   };
+
+  updateStocks = async (stockData) => {
+    try {
+      await updateStocks(stockData);
+
+      return {
+        status: "success",
+        message: "Updated the stock successfully",
+      };
+    } catch (error) {
+      console.error("Error updating stocks:", error);
+      throw error;
+    }
+  };
 }
 
-export default StockService;
+export default StocksService;

@@ -7,8 +7,11 @@ class StocksRouter {
 
   getRouter() {
     const router = express.Router();
+
     router.route("/list").get(this.stocksController.getStocks);
     router.route("/add").post(this.stocksController.addStocks);
+    router.route("/update").put(this.stocksController.updateStocks);
+
     return router;
   }
 }

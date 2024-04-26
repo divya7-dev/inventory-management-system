@@ -1,11 +1,11 @@
-class StocksController {
-  constructor(stocksService) {
-    this.stocksService = stocksService;
+class CustomersController {
+  constructor(customersService) {
+    this.customersService = customersService;
   }
 
-  getStocks = (_, res) => {
-    this.stocksService
-      .getStocks()
+  getCustomers = (_, res) => {
+    this.customersService
+      .getCustomers()
       .then((response) => {
         res.status(200).json(response);
       })
@@ -15,9 +15,9 @@ class StocksController {
       });
   };
 
-  addStocks = (req, res) => {
-    this.stocksService
-      .addStocks(req.body)
+  addCustomers = (req, res) => {
+    this.customersService
+      .addCustomers(req.body)
       .then((response) => {
         res.status(200).json(response);
       })
@@ -27,9 +27,9 @@ class StocksController {
       });
   };
 
-  updateStocks = (req, res) => {
-    this.stocksService
-      .updateStocks(req.body)
+  updateCustomers = (req, res) => {
+    this.customersService
+      .updateCustomers(req.body)
       .then((response) => {
         res.status(200).json(response);
       })
@@ -40,4 +40,4 @@ class StocksController {
   };
 }
 
-export default StocksController;
+export default CustomersController;
