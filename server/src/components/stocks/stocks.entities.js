@@ -1,5 +1,3 @@
-class Stocks {
-
-}
+class Stocks {}
 
 export default Stocks;

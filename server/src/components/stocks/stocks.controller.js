@@ -4,11 +4,12 @@ class StocksController {
   }
 
   getStocks = (_, res) => {
-    this.stocksService.getStocks()
-      .then(response => {
+    this.stocksService
+      .getStocks()
+      .then((response) => {
         res.status(200).json(response);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error:", error);
         res.status(500).json({ error: "Internal server error" });
       });

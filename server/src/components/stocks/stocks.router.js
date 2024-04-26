@@ -1,4 +1,4 @@
-import express from 'express';
+import express from "express";
 
 class StocksRouter {
   constructor(stocksController) {
@@ -7,7 +7,7 @@ class StocksRouter {
 
   getRouter() {
     const router = express.Router();
-    router.route('/list').get(this.stocksController.getStocks);
+    router.route("/list").get(this.stocksController.getStocks);
     return router;
   }
 }

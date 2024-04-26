@@ -1,14 +1,14 @@
-import { getStocks } from '../../database.js';
+import { getStocks } from "../../database.js";
 
 class StockService {
   getStocks = async () => {
     try {
-      let data = await getStocks()
+      let data = await getStocks();
 
       return {
         status: "success",
         message: "Retrieved the stocks list successfully",
-        data: data
+        data: data,
       };
     } catch (error) {
       console.error("Error fetching stocks:", error);
@@ -16,5 +16,5 @@ class StockService {
     }
   };
 }
-  
-  export default StockService;
+
+export default StockService;

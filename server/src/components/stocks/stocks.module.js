@@ -1,6 +1,6 @@
-import StocksController from './stocks.controller.js';
-import StocksService from './stocks.service.js';
-import StocksRouter from './stocks.router.js';
+import StocksController from "./stocks.controller.js";
+import StocksService from "./stocks.service.js";
+import StocksRouter from "./stocks.router.js";
 
 const stocksService = new StocksService();
 const stocksController = new StocksController(stocksService);
