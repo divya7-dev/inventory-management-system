@@ -1,4 +1,4 @@
-import { getStocks } from "../../database.js";
+import { getStocks, addStocks } from "../../database.js";
 
 class StockService {
   getStocks = async () => {
@@ -12,6 +12,20 @@ class StockService {
       };
     } catch (error) {
       console.error("Error fetching stocks:", error);
+      throw error;
+    }
+  };
+
+  addStocks = async (stockData) => {
+    try {
+      await addStocks(stockData);
+
+      return {
+        status: "success",
+        message: "Added the stock successfully",
+      };
+    } catch (error) {
+      console.error("Error adding stocks:", error);
       throw error;
     }
   };

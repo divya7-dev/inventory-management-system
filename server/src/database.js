@@ -23,3 +23,24 @@ export async function getStocks() {
     throw error;
   }
 }
+
+export async function addStocks(stockData) {
+  try {
+    const query = `
+      INSERT INTO stocks (item_name, part_number, opening_stocks, stocks_on_hand, price)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+    const values = [
+      stockData.item_name,
+      stockData.part_number,
+      stockData.opening_stocks,
+      stockData.stocks_on_hand,
+      stockData.price,
+    ];
+
+    await pool.query(query, values);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
