@@ -2,7 +2,7 @@ import { ObjectData } from "../helper/types";
 
 export default function Table({ tableData }: { tableData: ObjectData }) {
   return (
-    <div className="mt-7">
+    <div className="mt-7 p-6">
       <table className="w-full ">
         <thead className="sticky top-0">
           <tr className="bg-[#F3F8ED] border border-[#F3F8ED]">
@@ -29,15 +29,19 @@ export default function Table({ tableData }: { tableData: ObjectData }) {
               >
                 {parentIndex + 1}
               </td>
-              {Object.keys(tableObj).map((item: string, childIndex: number) => (
-                <td
-                  key={childIndex}
-                  className="text-left text-[14px] font-['Figtree-Regular'] pl-4 py-2"
-                  style={{ maxWidth: tableData.width[childIndex] }}
-                >
-                  {tableObj[item]}
-                </td>
-              ))}
+              {Object.keys(tableObj).map(
+                (item: string, childIndex: number) =>
+                  item != "id" && (
+                    <td
+                      key={childIndex}
+                      className="text-left text-[14px] font-['Figtree-Regular'] pl-4 py-2"
+                      style={{ maxWidth: tableData.width[childIndex] }}
+                    >
+                      {tableObj[item]}
+                      {item == "price" && " INR"}
+                    </td>
+                  ),
+              )}
             </tr>
           ))}
         </tbody>
