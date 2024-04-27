@@ -48,10 +48,12 @@ export async function addStocks(stockData) {
 
 export async function updateStocks(stockData) {
   try {
-    const openingStocksDifference = stockData.opening_stocks - await getOpeningStocks(stockData.id)
-    const updatedStocksOnHand = await getStocksOnHand(stockData.id) + openingStocksDifference
+    const openingStocksDifference =
+      stockData.opening_stocks - (await getOpeningStocks(stockData.id));
+    const updatedStocksOnHand =
+      (await getStocksOnHand(stockData.id)) + openingStocksDifference;
 
-    updateStocksOnHand(stockData.id, updatedStocksOnHand)
+    updateStocksOnHand(stockData.id, updatedStocksOnHand);
 
     const query = `
       UPDATE stocks SET item_name = ?, part_number = ?, opening_stocks = ?, price = ?
@@ -73,9 +75,12 @@ export async function updateStocks(stockData) {
 
 export async function deleteStocks(stockId) {
   try {
-    await pool.query(`
+    await pool.query(
+      `
       DELETE FROM stocks WHERE id = ?
-    `, [stockId]);
+    `,
+      [stockId],
+    );
   } catch (error) {
     console.error("Database query error:", error);
     throw error;
@@ -174,8 +179,9 @@ export async function getInvoices() {
 
 export async function addInvoices(invoiceData) {
   try {
-    const updatedStocksOnHand = await getStocksOnHand(invoiceData.item_id) - invoiceData.items_count
-    await updateStocksOnHand(invoiceData.item_id, updatedStocksOnHand)
+    const updatedStocksOnHand =
+      (await getStocksOnHand(invoiceData.item_id)) - invoiceData.items_count;
+    await updateStocksOnHand(invoiceData.item_id, updatedStocksOnHand);
 
     const currentDateUTC = new Date()
       .toISOString()
@@ -191,7 +197,7 @@ export async function addInvoices(invoiceData) {
       invoiceData.invoice_number,
       invoiceData.customer_id,
       invoiceData.item_id,
-      invoiceData.items_count
+      invoiceData.items_count,
     ];
 
     await pool.query(query, values);
@@ -203,8 +209,9 @@ export async function addInvoices(invoiceData) {
 
 export async function updateInvoices(invoiceData) {
   try {
-    const updatedStocksOnHand = await getStocksOnHand(invoiceData.item_id) - invoiceData.items_count
-    await updateStocksOnHand(invoiceData.item_id, updatedStocksOnHand)
+    const updatedStocksOnHand =
+      (await getStocksOnHand(invoiceData.item_id)) - invoiceData.items_count;
+    await updateStocksOnHand(invoiceData.item_id, updatedStocksOnHand);
 
     const invoicesQuery = `
       UPDATE invoices SET invoice_number = ?, customer_id = ?, item_id = ?, items_count = ?
@@ -330,11 +337,13 @@ export async function getBills() {
 
 export async function addBills(billData) {
   try {
-    const updatedOpeningStocks = await getOpeningStocks(billData.item_id) + billData.items_count
-    await updateOpeningStocks(billData.item_id, updatedOpeningStocks)
+    const updatedOpeningStocks =
+      (await getOpeningStocks(billData.item_id)) + billData.items_count;
+    await updateOpeningStocks(billData.item_id, updatedOpeningStocks);
 
-    const updatedStocksOnHand = await getStocksOnHand(billData.item_id) + billData.items_count
-    await updateStocksOnHand(billData.item_id, updatedStocksOnHand)
+    const updatedStocksOnHand =
+      (await getStocksOnHand(billData.item_id)) + billData.items_count;
+    await updateStocksOnHand(billData.item_id, updatedStocksOnHand);
 
     const currentDateUTC = new Date()
       .toISOString()
@@ -350,7 +359,7 @@ export async function addBills(billData) {
       billData.bill_number,
       billData.vendor_id,
       billData.item_id,
-      billData.items_count
+      billData.items_count,
     ];
 
     await pool.query(query, values);
@@ -362,11 +371,13 @@ export async function addBills(billData) {
 
 export async function updateBills(billData) {
   try {
-    const updatedOpeningStocks = await getOpeningStocks(billData.item_id) + billData.items_count
-    await updateOpeningStocks(billData.item_id, updatedOpeningStocks)
+    const updatedOpeningStocks =
+      (await getOpeningStocks(billData.item_id)) + billData.items_count;
+    await updateOpeningStocks(billData.item_id, updatedOpeningStocks);
 
-    const updatedStocksOnHand = await getStocksOnHand(billData.item_id) + billData.items_count
-    await updateStocksOnHand(billData.item_id, updatedStocksOnHand)
+    const updatedStocksOnHand =
+      (await getStocksOnHand(billData.item_id)) + billData.items_count;
+    await updateStocksOnHand(billData.item_id, updatedStocksOnHand);
 
     const query = `
       UPDATE bills SET bill_number = ?, vendor_id = ?, item_id = ?, items_count = ?
@@ -402,29 +413,41 @@ export async function deleteBills(billId) {
 
 // Functions
 async function getOpeningStocks(itemId) {
-  const [rows] = await pool.query(`
+  const [rows] = await pool.query(
+    `
       SELECT opening_stocks FROM stocks WHERE id = ?
-    `, [itemId]);
+    `,
+    [itemId],
+  );
 
-    return rows[0].opening_stocks
+  return rows[0].opening_stocks;
 }
 
 async function updateOpeningStocks(itemId, count) {
-  await pool.query(`
+  await pool.query(
+    `
       UPDATE stocks SET opening_stocks = ? WHERE id = ?
-    `, [count, itemId]);
+    `,
+    [count, itemId],
+  );
 }
 
 async function getStocksOnHand(itemId) {
-  const [rows] = await pool.query(`
+  const [rows] = await pool.query(
+    `
       SELECT stocks_on_hand FROM stocks WHERE id = ?
-    `, [itemId]);
+    `,
+    [itemId],
+  );
 
-    return rows[0].stocks_on_hand
+  return rows[0].stocks_on_hand;
 }
 
 async function updateStocksOnHand(itemId, count) {
-  await pool.query(`
+  await pool.query(
+    `
       UPDATE stocks SET stocks_on_hand = ? WHERE id = ?
-    `, [count, itemId]);
+    `,
+    [count, itemId],
+  );
 }
