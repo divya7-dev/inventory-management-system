@@ -4,6 +4,7 @@ import stocksModule from "./components/stocks/stocks.module.js";
 import customersModule from "./components/customers/customers.module.js";
 import invoicesModule from "./components/invoices/invoices.module.js";
 import vendorsModule from "./components/vendors/vendors.module.js";
+import billsModule from "./components/bills/bills.module.js";
 
 app.listen(4000, () => {
   console.log("Server listening...");
@@ -14,3 +15,4 @@ app.use("/stocks", stocksModule.router);
 app.use("/customers", customersModule.router);
 app.use("/invoices", invoicesModule.router);
 app.use("/vendors", vendorsModule.router);
+app.use("/bills", billsModule.router);

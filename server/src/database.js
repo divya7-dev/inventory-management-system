@@ -163,7 +163,7 @@ export async function getInvoices() {
     `);
     return data.map((row) => ({
       ...row,
-      date: new Date(row.date + "Z"), // Ensure UTC timezone
+      date: new Date(row.date + "Z"),
     }));
   } catch (error) {
     console.error("Database query error:", error);
@@ -285,15 +285,91 @@ export async function updateVendors(vendorData) {
 
 export async function deleteVendors(vendorId) {
   try {
-    // const queryInvoices = `
-    //   DELETE FROM vendors WHERE customer_id = ?
-    // `;
-    // await pool.query(queryInvoices, [customerId]);
+    const queryBills = `
+      DELETE FROM bills WHERE vendor_id = ?
+    `;
+    await pool.query(queryBills, [vendorId]);
 
     const queryVendors = `
       DELETE FROM vendors WHERE id = ?
     `;
     await pool.query(queryVendors, [vendorId]);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+// bills
+export async function getBills() {
+  try {
+    const [data] = await pool.query(`
+      SELECT bills.date, bills.bill_number, vendors.name, bills.price
+      FROM bills
+      INNER JOIN vendors ON bills.vendor_id = vendors.id
+    `);
+    return data.map((row) => ({
+      ...row,
+      date: new Date(row.date + "Z"),
+    }));
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+export async function addBills(billData) {
+  try {
+    const currentDateUTC = new Date()
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+
+    const query = `
+      INSERT INTO bills (date, bill_number, vendor_id, price)
+      VALUES (?, ?, ?, ?)
+    `;
+    const values = [
+      currentDateUTC,
+      billData.bill_number,
+      billData.vendor_id,
+      billData.price,
+    ];
+
+    await pool.query(query, values);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+export async function updateBills(billData) {
+  try {
+    const query = `
+      UPDATE bills SET bill_number = ?, vendor_id = ?, price = ?
+      WHERE id = ?
+    `;
+    const values = [
+      billData.bill_number,
+      billData.vendor_id,
+      billData.price,
+      billData.id,
+    ];
+
+    await pool.query(query, values);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+export async function deleteBills(billId) {
+  try {
+    const query = `
+      DELETE FROM bills WHERE id = ?
+    `;
+
+    await pool.query(query, [billId]);
   } catch (error) {
     console.error("Database query error:", error);
     throw error;

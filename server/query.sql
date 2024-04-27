@@ -60,3 +60,19 @@ CREATE TABLE vendors(
 INSERT INTO vendors(name, contact_number, email, address)
 VALUES
     ("Test Vendor", "8375667548", "sanudivya7@gmail.com", "xx, yyy, zzz");
+
+-- Create bills table --
+CREATE TABLE bills(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATETIME,
+    bill_number VARCHAR(100),
+    vendor_id INT,
+    price FLOAT(8, 2),
+    FOREIGN KEY (vendor_id) REFERENCES vendors(id)
+);
+
+-- Insert dummy data into bills table --
+INSERT INTO bills (date, bill_number, vendor_id, price)
+VALUES ('2024-04-27 10:00:00', 'BILL-2024-001', 1, 100.50),
+       ('2024-04-27 11:30:00', 'BILL-2024-002', 3, 75.25),
+       ('2024-04-27 12:45:00', 'BILL-2024-003', 1, 200.75);
