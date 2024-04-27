@@ -35,7 +35,7 @@ export async function addStocks(stockData) {
       stockData.item_name,
       stockData.part_number,
       stockData.opening_stocks,
-      stockData.stocks_on_hand,
+      stockData.opening_stocks,
       stockData.price,
     ];
 
@@ -48,19 +48,22 @@ export async function addStocks(stockData) {
 
 export async function updateStocks(stockData) {
   try {
+    const openingStocksDifference = stockData.opening_stocks - await getOpeningStocks(stockData.id)
+    const updatedStocksOnHand = await getStocksOnHand(stockData.id) + openingStocksDifference
+
+    updateStocksOnHand(stockData.id, updatedStocksOnHand)
+
     const query = `
-      UPDATE stocks SET item_name = ?, part_number = ?, opening_stocks = ?, stocks_on_hand = ?, price = ?
+      UPDATE stocks SET item_name = ?, part_number = ?, opening_stocks = ?, price = ?
       WHERE id = ?
     `;
     const values = [
       stockData.item_name,
       stockData.part_number,
       stockData.opening_stocks,
-      stockData.stocks_on_hand,
       stockData.price,
       stockData.id,
     ];
-
     await pool.query(query, values);
   } catch (error) {
     console.error("Database query error:", error);
@@ -70,12 +73,9 @@ export async function updateStocks(stockData) {
 
 export async function deleteStocks(stockId) {
   try {
-    const query = `
+    await pool.query(`
       DELETE FROM stocks WHERE id = ?
-    `;
-    const values = [stockId];
-
-    await pool.query(query, values);
+    `, [stockId]);
   } catch (error) {
     console.error("Database query error:", error);
     throw error;
@@ -157,9 +157,10 @@ export async function deleteCustomers(customerId) {
 export async function getInvoices() {
   try {
     const [data] = await pool.query(`
-      SELECT invoices.date, invoices.invoice_number, customers.name, invoices.price
+      SELECT invoices.date, invoices.invoice_number, customers.name AS customer_name, stocks.item_name, invoices.items_count
       FROM invoices
       INNER JOIN customers ON invoices.customer_id = customers.id
+      INNER JOIN stocks ON invoices.item_id = stocks.id
     `);
     return data.map((row) => ({
       ...row,
@@ -173,20 +174,24 @@ export async function getInvoices() {
 
 export async function addInvoices(invoiceData) {
   try {
+    const updatedStocksOnHand = await getStocksOnHand(invoiceData.item_id) - invoiceData.items_count
+    await updateStocksOnHand(invoiceData.item_id, updatedStocksOnHand)
+
     const currentDateUTC = new Date()
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
 
     const query = `
-      INSERT INTO invoices (date, invoice_number, customer_id, price)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO invoices (date, invoice_number, customer_id, item_id, items_count)
+      VALUES (?, ?, ?, ?, ?)
     `;
     const values = [
       currentDateUTC,
       invoiceData.invoice_number,
       invoiceData.customer_id,
-      invoiceData.price,
+      invoiceData.item_id,
+      invoiceData.items_count
     ];
 
     await pool.query(query, values);
@@ -198,18 +203,22 @@ export async function addInvoices(invoiceData) {
 
 export async function updateInvoices(invoiceData) {
   try {
-    const query = `
-      UPDATE invoices SET invoice_number = ?, customer_id = ?, price = ?
+    const updatedStocksOnHand = await getStocksOnHand(invoiceData.item_id) - invoiceData.items_count
+    await updateStocksOnHand(invoiceData.item_id, updatedStocksOnHand)
+
+    const invoicesQuery = `
+      UPDATE invoices SET invoice_number = ?, customer_id = ?, item_id = ?, items_count = ?
       WHERE id = ?
     `;
     const values = [
       invoiceData.invoice_number,
       invoiceData.customer_id,
-      invoiceData.price,
+      invoiceData.item_id,
+      invoiceData.items_count,
       invoiceData.id,
     ];
 
-    await pool.query(query, values);
+    await pool.query(invoicesQuery, values);
   } catch (error) {
     console.error("Database query error:", error);
     throw error;
@@ -304,9 +313,10 @@ export async function deleteVendors(vendorId) {
 export async function getBills() {
   try {
     const [data] = await pool.query(`
-      SELECT bills.date, bills.bill_number, vendors.name, bills.price
+      SELECT bills.date, bills.bill_number, vendors.name AS vendor_name, stocks.item_name, bills.items_count
       FROM bills
       INNER JOIN vendors ON bills.vendor_id = vendors.id
+      INNER JOIN stocks ON bills.item_id = stocks.id
     `);
     return data.map((row) => ({
       ...row,
@@ -320,20 +330,27 @@ export async function getBills() {
 
 export async function addBills(billData) {
   try {
+    const updatedOpeningStocks = await getOpeningStocks(billData.item_id) + billData.items_count
+    await updateOpeningStocks(billData.item_id, updatedOpeningStocks)
+
+    const updatedStocksOnHand = await getStocksOnHand(billData.item_id) + billData.items_count
+    await updateStocksOnHand(billData.item_id, updatedStocksOnHand)
+
     const currentDateUTC = new Date()
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
 
     const query = `
-      INSERT INTO bills (date, bill_number, vendor_id, price)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO bills (date, bill_number, vendor_id, item_id, items_count)
+      VALUES (?, ?, ?, ?, ?)
     `;
     const values = [
       currentDateUTC,
       billData.bill_number,
       billData.vendor_id,
-      billData.price,
+      billData.item_id,
+      billData.items_count
     ];
 
     await pool.query(query, values);
@@ -345,14 +362,21 @@ export async function addBills(billData) {
 
 export async function updateBills(billData) {
   try {
+    const updatedOpeningStocks = await getOpeningStocks(billData.item_id) + billData.items_count
+    await updateOpeningStocks(billData.item_id, updatedOpeningStocks)
+
+    const updatedStocksOnHand = await getStocksOnHand(billData.item_id) + billData.items_count
+    await updateStocksOnHand(billData.item_id, updatedStocksOnHand)
+
     const query = `
-      UPDATE bills SET bill_number = ?, vendor_id = ?, price = ?
+      UPDATE bills SET bill_number = ?, vendor_id = ?, item_id = ?, items_count = ?
       WHERE id = ?
     `;
     const values = [
       billData.bill_number,
       billData.vendor_id,
-      billData.price,
+      billData.item_id,
+      billData.items_count,
       billData.id,
     ];
 
@@ -374,4 +398,33 @@ export async function deleteBills(billId) {
     console.error("Database query error:", error);
     throw error;
   }
+}
+
+// Functions
+async function getOpeningStocks(itemId) {
+  const [rows] = await pool.query(`
+      SELECT opening_stocks FROM stocks WHERE id = ?
+    `, [itemId]);
+
+    return rows[0].opening_stocks
+}
+
+async function updateOpeningStocks(itemId, count) {
+  await pool.query(`
+      UPDATE stocks SET opening_stocks = ? WHERE id = ?
+    `, [count, itemId]);
+}
+
+async function getStocksOnHand(itemId) {
+  const [rows] = await pool.query(`
+      SELECT stocks_on_hand FROM stocks WHERE id = ?
+    `, [itemId]);
+
+    return rows[0].stocks_on_hand
+}
+
+async function updateStocksOnHand(itemId, count) {
+  await pool.query(`
+      UPDATE stocks SET stocks_on_hand = ? WHERE id = ?
+    `, [count, itemId]);
 }
