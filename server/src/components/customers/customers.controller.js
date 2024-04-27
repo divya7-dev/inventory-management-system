@@ -38,6 +38,19 @@ class CustomersController {
         res.status(500).json({ error: "Internal server error" });
       });
   };
+
+  deleteCustomers = (req, res) => {
+    const { id } = req.params;
+    this.customersService
+      .deleteCustomers(id)
+      .then((response) => {
+        res.status(200).json(response);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        res.status(500).json({ error: "Internal server error" });
+      });
+  };
 }
 
 export default CustomersController;

@@ -1,11 +1,11 @@
-class StocksController {
-  constructor(stocksService) {
-    this.stocksService = stocksService;
+class InvoicesController {
+  constructor(invoicesService) {
+    this.invoicesService = invoicesService;
   }
 
-  getStocks = (_, res) => {
-    this.stocksService
-      .getStocks()
+  getInvoices = (_, res) => {
+    this.invoicesService
+      .getInvoices()
       .then((response) => {
         res.status(200).json(response);
       })
@@ -15,9 +15,9 @@ class StocksController {
       });
   };
 
-  addStocks = (req, res) => {
-    this.stocksService
-      .addStocks(req.body)
+  addInvoices = (req, res) => {
+    this.invoicesService
+      .addInvoices(req.body)
       .then((response) => {
         res.status(200).json(response);
       })
@@ -27,9 +27,9 @@ class StocksController {
       });
   };
 
-  updateStocks = (req, res) => {
-    this.stocksService
-      .updateStocks(req.body)
+  updateInvoices = (req, res) => {
+    this.invoicesService
+      .updateInvoices(req.body)
       .then((response) => {
         res.status(200).json(response);
       })
@@ -39,10 +39,10 @@ class StocksController {
       });
   };
 
-  deleteStocks = (req, res) => {
+  deleteInvoices = (req, res) => {
     const { id } = req.params;
-    this.stocksService
-      .deleteStocks(id)
+    this.invoicesService
+      .deleteInvoices(id)
       .then((response) => {
         res.status(200).json(response);
       })
@@ -53,4 +53,4 @@ class StocksController {
   };
 }
 
-export default StocksController;
+export default InvoicesController;

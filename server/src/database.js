@@ -68,6 +68,20 @@ export async function updateStocks(stockData) {
   }
 }
 
+export async function deleteStocks(stockId) {
+  try {
+    const query = `
+      DELETE FROM stocks WHERE id = ?
+    `;
+    const values = [stockId];
+
+    await pool.query(query, values);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
 // customers
 export async function getCustomers() {
   try {
@@ -116,6 +130,99 @@ export async function updateCustomers(customerData) {
     ];
 
     await pool.query(query, values);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+export async function deleteCustomers(customerId) {
+  try {
+    const queryInvoices = `
+      DELETE FROM invoices WHERE customer_id = ?
+    `;
+    await pool.query(queryInvoices, [customerId]);
+
+    const queryCustomers = `
+      DELETE FROM customers WHERE id = ?
+    `;
+    await pool.query(queryCustomers, [customerId]);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+// invoices
+export async function getInvoices() {
+  try {
+    const [data] = await pool.query(`
+      SELECT invoices.date, invoices.invoice_number, customers.name, invoices.price
+      FROM invoices
+      INNER JOIN customers ON invoices.customer_id = customers.id
+    `);
+    return data.map((row) => ({
+      ...row,
+      date: new Date(row.date + "Z"), // Ensure UTC timezone
+    }));
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+export async function addInvoices(invoiceData) {
+  try {
+    const currentDateUTC = new Date()
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+
+    const query = `
+      INSERT INTO invoices (date, invoice_number, customer_id, price)
+      VALUES (?, ?, ?, ?)
+    `;
+    const values = [
+      currentDateUTC,
+      invoiceData.invoice_number,
+      invoiceData.customer_id,
+      invoiceData.price,
+    ];
+
+    await pool.query(query, values);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+export async function updateInvoices(invoiceData) {
+  try {
+    const query = `
+      UPDATE invoices SET invoice_number = ?, customer_id = ?, price = ?
+      WHERE id = ?
+    `;
+    const values = [
+      invoiceData.invoice_number,
+      invoiceData.customer_id,
+      invoiceData.price,
+      invoiceData.id,
+    ];
+
+    await pool.query(query, values);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+export async function deleteInvoices(invoiceId) {
+  try {
+    const query = `
+      DELETE FROM invoices WHERE id = ?
+    `;
+
+    await pool.query(query, [invoiceId]);
   } catch (error) {
     console.error("Database query error:", error);
     throw error;

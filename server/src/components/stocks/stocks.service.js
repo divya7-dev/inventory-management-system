@@ -1,4 +1,9 @@
-import { getStocks, addStocks, updateStocks } from "../../database.js";
+import {
+  getStocks,
+  addStocks,
+  updateStocks,
+  deleteStocks,
+} from "../../database.js";
 
 class StocksService {
   getStocks = async () => {
@@ -40,6 +45,20 @@ class StocksService {
       };
     } catch (error) {
       console.error("Error updating stocks:", error);
+      throw error;
+    }
+  };
+
+  deleteStocks = async (stockId) => {
+    try {
+      await deleteStocks(stockId);
+
+      return {
+        status: "success",
+        message: "Deleted the stock successfully",
+      };
+    } catch (error) {
+      console.error("Error deleting stocks:", error);
       throw error;
     }
   };

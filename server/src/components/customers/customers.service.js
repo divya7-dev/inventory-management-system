@@ -1,4 +1,9 @@
-import { getCustomers, addCustomers, updateCustomers } from "../../database.js";
+import {
+  getCustomers,
+  addCustomers,
+  updateCustomers,
+  deleteCustomers,
+} from "../../database.js";
 
 class CustomersService {
   getCustomers = async () => {
@@ -40,6 +45,20 @@ class CustomersService {
       };
     } catch (error) {
       console.error("Error updating customers:", error);
+      throw error;
+    }
+  };
+
+  deleteCustomers = async (customerId) => {
+    try {
+      await deleteCustomers(customerId);
+
+      return {
+        status: "success",
+        message: "Deleted the customer successfully",
+      };
+    } catch (error) {
+      console.error("Error deleting customers:", error);
       throw error;
     }
   };

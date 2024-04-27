@@ -11,6 +11,7 @@ class StocksRouter {
     router.route("/list").get(this.stocksController.getStocks);
     router.route("/add").post(this.stocksController.addStocks);
     router.route("/update").put(this.stocksController.updateStocks);
+    router.route("/delete/:id").delete(this.stocksController.deleteStocks);
 
     return router;
   }
