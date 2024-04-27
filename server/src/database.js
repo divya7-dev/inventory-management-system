@@ -228,3 +228,74 @@ export async function deleteInvoices(invoiceId) {
     throw error;
   }
 }
+
+// vendors
+export async function getVendors() {
+  try {
+    const [data] = await pool.query(`
+            SELECT * FROM vendors
+        `);
+    return data;
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+export async function addVendors(vendorData) {
+  try {
+    const query = `
+      INSERT INTO vendors (name, email, contact_number, address)
+      VALUES (?, ?, ?, ?)
+    `;
+    const values = [
+      vendorData.name,
+      vendorData.email,
+      vendorData.contact_number,
+      vendorData.address,
+    ];
+
+    await pool.query(query, values);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+export async function updateVendors(vendorData) {
+  try {
+    const query = `
+      UPDATE vendors SET name = ?, email = ?, contact_number = ?, address = ?
+      WHERE id = ?
+    `;
+    const values = [
+      vendorData.name,
+      vendorData.email,
+      vendorData.contact_number,
+      vendorData.address,
+      vendorData.id,
+    ];
+
+    await pool.query(query, values);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+export async function deleteVendors(vendorId) {
+  try {
+    // const queryInvoices = `
+    //   DELETE FROM vendors WHERE customer_id = ?
+    // `;
+    // await pool.query(queryInvoices, [customerId]);
+
+    const queryVendors = `
+      DELETE FROM vendors WHERE id = ?
+    `;
+    await pool.query(queryVendors, [vendorId]);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
