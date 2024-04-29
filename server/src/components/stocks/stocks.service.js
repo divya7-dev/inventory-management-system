@@ -3,6 +3,7 @@ import {
   addStocks,
   updateStocks,
   deleteStocks,
+  getStocksDropdown
 } from "../../database.js";
 
 class StocksService {
@@ -59,6 +60,21 @@ class StocksService {
       };
     } catch (error) {
       console.error("Error deleting stocks:", error);
+      throw error;
+    }
+  };
+
+  getStocksDropdown = async () => {
+    try {
+      let data = await getStocksDropdown();
+
+      return {
+        status: "success",
+        message: "Retrieved the stocks for dropdown successfully",
+        data: data,
+      };
+    } catch (error) {
+      console.error("Error fetching stocks:", error);
       throw error;
     }
   };

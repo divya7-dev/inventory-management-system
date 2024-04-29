@@ -16,7 +16,7 @@ var pool = mysql
 export async function getStocks() {
   try {
     const [data] = await pool.query(`
-            SELECT * FROM stocks
+            SELECT * FROM stocks ORDER BY id DESC
         `);
     return data;
   } catch (error) {
@@ -87,11 +87,24 @@ export async function deleteStocks(stockId) {
   }
 }
 
+export async function getStocksDropdown() {
+  try {
+    const [data] = await pool.query(`
+            SELECT id, item_name AS name FROM stocks ORDER BY id DESC
+        `);
+    return data;
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+
 // customers
 export async function getCustomers() {
   try {
     const [data] = await pool.query(`
-            SELECT * FROM customers
+            SELECT * FROM customers ORDER BY id DESC
         `);
     return data;
   } catch (error) {
@@ -158,6 +171,18 @@ export async function deleteCustomers(customerId) {
   }
 }
 
+export async function getCustomersDropdown() {
+  try {
+    const [data] = await pool.query(`
+            SELECT id, name FROM customers ORDER BY id DESC
+        `);
+    return data;
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
 // invoices
 export async function getInvoices() {
   try {
@@ -166,6 +191,7 @@ export async function getInvoices() {
       FROM invoices
       INNER JOIN customers ON invoices.customer_id = customers.id
       INNER JOIN stocks ON invoices.item_id = stocks.id
+      ORDER BY invoices.id DESC
     `);
     return data.map((row) => ({
       ...row,
@@ -249,7 +275,7 @@ export async function deleteInvoices(invoiceId) {
 export async function getVendors() {
   try {
     const [data] = await pool.query(`
-            SELECT * FROM vendors
+            SELECT * FROM vendors ORDER BY id DESC
         `);
     return data;
   } catch (error) {
@@ -316,6 +342,18 @@ export async function deleteVendors(vendorId) {
   }
 }
 
+export async function getVendorsDropdown() {
+  try {
+    const [data] = await pool.query(`
+            SELECT id, name FROM vendors ORDER BY id DESC
+        `);
+    return data;
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
 // bills
 export async function getBills() {
   try {
@@ -324,6 +362,7 @@ export async function getBills() {
       FROM bills
       INNER JOIN vendors ON bills.vendor_id = vendors.id
       INNER JOIN stocks ON bills.item_id = stocks.id
+      ORDER BY bills.id DESC
     `);
     return data.map((row) => ({
       ...row,

@@ -3,6 +3,7 @@ import {
   addVendors,
   updateVendors,
   deleteVendors,
+  getVendorsDropdown
 } from "../../database.js";
 
 class VendorsService {
@@ -59,6 +60,21 @@ class VendorsService {
       };
     } catch (error) {
       console.error("Error deleting vendors:", error);
+      throw error;
+    }
+  };
+
+  getVendorsDropdown = async () => {
+    try {
+      let data = await getVendorsDropdown();
+
+      return {
+        status: "success",
+        message: "Retrieved the vendors for dropdown successfully",
+        data: data,
+      };
+    } catch (error) {
+      console.error("Error fetching vendors:", error);
       throw error;
     }
   };

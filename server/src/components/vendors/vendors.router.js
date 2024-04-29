@@ -12,6 +12,7 @@ class VendorsRouter {
     router.route("/add").post(this.vendorsController.addVendors);
     router.route("/update").put(this.vendorsController.updateVendors);
     router.route("/delete/:id").delete(this.vendorsController.deleteVendors);
+    router.route("/dropdown").get(this.vendorsController.getVendorsDropdown);
 
     return router;
   }

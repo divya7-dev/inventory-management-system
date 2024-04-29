@@ -11,9 +11,8 @@ class CustomersRouter {
     router.route("/list").get(this.customersController.getCustomers);
     router.route("/add").post(this.customersController.addCustomers);
     router.route("/update").put(this.customersController.updateCustomers);
-    router
-      .route("/delete/:id")
-      .delete(this.customersController.deleteCustomers);
+    router.route("/delete/:id").delete(this.customersController.deleteCustomers);
+    router.route("/dropdown").get(this.customersController.getCustomersDropdown);
 
     return router;
   }

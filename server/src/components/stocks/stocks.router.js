@@ -12,6 +12,7 @@ class StocksRouter {
     router.route("/add").post(this.stocksController.addStocks);
     router.route("/update").put(this.stocksController.updateStocks);
     router.route("/delete/:id").delete(this.stocksController.deleteStocks);
+    router.route("/dropdown").get(this.stocksController.getStocksDropdown);
 
     return router;
   }

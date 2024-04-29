@@ -3,6 +3,7 @@ import {
   addCustomers,
   updateCustomers,
   deleteCustomers,
+  getCustomersDropdown
 } from "../../database.js";
 
 class CustomersService {
@@ -59,6 +60,21 @@ class CustomersService {
       };
     } catch (error) {
       console.error("Error deleting customers:", error);
+      throw error;
+    }
+  };
+
+  getCustomersDropdown = async () => {
+    try {
+      let data = await getCustomersDropdown();
+
+      return {
+        status: "success",
+        message: "Retrieved the customers for dropdown successfully",
+        data: data,
+      };
+    } catch (error) {
+      console.error("Error fetching customers:", error);
       throw error;
     }
   };
