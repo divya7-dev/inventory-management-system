@@ -3,7 +3,7 @@ import {
   addVendors,
   updateVendors,
   deleteVendors,
-  getVendorsDropdown
+  getVendorsDropdown,
 } from "../../database.js";
 
 class VendorsService {

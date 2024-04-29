@@ -3,7 +3,7 @@ import {
   addCustomers,
   updateCustomers,
   deleteCustomers,
-  getCustomersDropdown
+  getCustomersDropdown,
 } from "../../database.js";
 
 class CustomersService {

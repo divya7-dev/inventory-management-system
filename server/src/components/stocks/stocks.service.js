@@ -3,7 +3,7 @@ import {
   addStocks,
   updateStocks,
   deleteStocks,
-  getStocksDropdown
+  getStocksDropdown,
 } from "../../database.js";
 
 class StocksService {

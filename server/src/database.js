@@ -99,7 +99,6 @@ export async function getStocksDropdown() {
   }
 }
 
-
 // customers
 export async function getCustomers() {
   try {
