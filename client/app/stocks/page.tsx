@@ -52,9 +52,11 @@ const Stocks = () => {
 
   return (
     <Layout>
-      <div>Stocks</div>
-      <Table tableData={stocks} />
-      <Modal show={show} fields={fields} handleClose={handleClose} />
+      <div className="p-6">
+        <div className="text-[#050505] text-[20px] font-['Figtree-Bold']">Stocks</div>
+        <Modal show={show} fields={fields} handleClose={handleClose} />
+        <Table tableData={stocks} />
+      </div>
     </Layout>
   );
 };

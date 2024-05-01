@@ -2,7 +2,7 @@ import { ObjectData } from "../helper/types";
 
 export default function Table({ tableData }: { tableData: ObjectData }) {
   return (
-    <div className="mt-7 p-6">
+    <div className="mt-3">
       <table className="w-full ">
         <thead className="sticky top-0">
           <tr className="bg-[#F3F8ED] border border-[#F3F8ED]">

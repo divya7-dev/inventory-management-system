@@ -8,7 +8,7 @@
         "key": "item_name"
       },
       {
-        "name": "Part Number",
+        "name": "SKU (Part Number)",
         "type": "text",
         "key": "part_number"
       },
