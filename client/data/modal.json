@@ -5,27 +5,32 @@
       {
         "name": "Item Name",
         "type": "text",
-        "key": "item_name"
+        "key": "item_name",
+        "placeHolder": "Enter the item name"
       },
       {
         "name": "SKU (Part Number)",
         "type": "text",
-        "key": "part_number"
+        "key": "part_number",
+        "placeHolder": "Enter the part number"
       },
       {
         "name": "Opening Stocks",
         "type": "number",
-        "key": "opening_stocks"
+        "key": "opening_stocks",
+        "placeHolder": "Enter the opening stocks"
       },
       {
         "name": "Stocks On Hand",
         "type": "number",
-        "key": "stocks_on_hand"
+        "key": "stocks_on_hand",
+        "placeHolder": "Enter the stocks on hand"
       },
       {
         "name": "Price",
         "type": "text",
-        "key": "price"
+        "key": "price",
+        "placeHolder": "Enter the price"
       }
     ]
   }

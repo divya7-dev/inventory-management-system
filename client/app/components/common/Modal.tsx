@@ -80,70 +80,24 @@ const Modal = ({
                   className="w-full flex flex-wrap  justify-between"
                   style={{ alignContent: "space-between" }}
                 >
-                  <div className="mb-4 w-[400px]">
-                    <label
-                      htmlFor="name"
-                      className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
-                    >
-                      Item Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="Enter the item Name"
-                      value={itemName}
-                      onChange={(e) => setItemName(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-4 w-[400px]">
-                    <label
-                      htmlFor="partNumber"
-                      className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
-                    >
-                      Part Number
-                    </label>
-                    <input
-                      type="number"
-                      id="partNumber"
-                      className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="Enter the part Number"
-                      value={partNumber}
-                      onChange={(e) => setPartNumber(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-4 w-[400px]">
-                    <label
-                      htmlFor="openingStocks"
-                      className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
-                    >
-                      Opening Stocks
-                    </label>
-                    <input
-                      type="number"
-                      id="openingStocks"
-                      className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="Enter the opening Stocks"
-                      value={openingStocks}
-                      onChange={(e) => setOpeningStocks(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-4 w-[400px]">
-                    <label
-                      htmlFor="price"
-                      className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
-                    >
-                      Price
-                    </label>
-                    <input
-                      type="number"
-                      id="price"
-                      className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="Enter the price"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                    />
-                  </div>
+                  {fields?.stocks?.fields.map((data: ObjectData, index: number) => (
+                    <div className="mb-4 w-[400px]">
+                      <label
+                        htmlFor={data.key}
+                        className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
+                      >
+                        {data.name}
+                      </label>
+                      <input
+                        type={data.type}
+                        id={data.key}
+                        className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder={data.placeHolder}
+                        // value={itemName}
+                        // onChange={(e) => setItemName(e.target.value)}
+                      />
+                    </div>
+                  ))}
                 </div>
                 <div className="flex flex-row-reverse mt-5">
                   <button
