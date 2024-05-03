@@ -15,12 +15,6 @@
         "placeHolder": "Enter the part number"
       },
       {
-        "name": "Opening Stocks",
-        "type": "number",
-        "key": "opening_stocks",
-        "placeHolder": "Enter the opening stocks"
-      },
-      {
         "name": "Stocks On Hand",
         "type": "number",
         "key": "stocks_on_hand",
@@ -28,7 +22,7 @@
       },
       {
         "name": "Price",
-        "type": "text",
+        "type": "number",
         "key": "price",
         "placeHolder": "Enter the price"
       }

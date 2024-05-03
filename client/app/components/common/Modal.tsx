@@ -80,24 +80,26 @@ const Modal = ({
                   className="w-full flex flex-wrap  justify-between"
                   style={{ alignContent: "space-between" }}
                 >
-                  {fields?.stocks?.fields.map((data: ObjectData, index: number) => (
-                    <div className="mb-4 w-[400px]">
-                      <label
-                        htmlFor={data.key}
-                        className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
-                      >
-                        {data.name}
-                      </label>
-                      <input
-                        type={data.type}
-                        id={data.key}
-                        className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder={data.placeHolder}
-                        // value={itemName}
-                        // onChange={(e) => setItemName(e.target.value)}
-                      />
-                    </div>
-                  ))}
+                  {fields?.stocks?.fields.map(
+                    (data: ObjectData, index: number) => (
+                      <div className="mb-4 w-[400px]">
+                        <label
+                          htmlFor={data.key}
+                          className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
+                        >
+                          {data.name}
+                        </label>
+                        <input
+                          type={data.type}
+                          id={data.key}
+                          className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          placeholder={data.placeHolder}
+                          // value={itemName}
+                          // onChange={(e) => setItemName(e.target.value)}
+                        />
+                      </div>
+                    ),
+                  )}
                 </div>
                 <div className="flex flex-row-reverse mt-5">
                   <button

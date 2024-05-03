@@ -19,7 +19,9 @@ function Sidebar() {
   return (
     <div className="flex-row rounded-lg h-screen bg-[#F3F8ED] w-52">
       <div className="text-[14px] gap-x-1.5 items-center text-[#050505] rounded-lg font-['Figtree-Regular'] ml-5">
-        <div className="text-[20px] font-['Figtree-Bold'] pl-1 py-6">Dashboard</div>
+        <div className="text-[20px] font-['Figtree-Bold'] pl-1 py-6">
+          Dashboard
+        </div>
         <a
           href="/stocks"
           className={`${pathname === "/stocks" && "font-['Figtree-Bold']"} border-b p-1 border-[#F0F0EF] block hover:bg-[#80B537]`}
