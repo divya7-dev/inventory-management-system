@@ -4,6 +4,8 @@ export const STOCKS_LIST = "/stocks/list";
 export const STOCKS_ADD = "/stocks/add";
 export const STOCKS_UPDATE = "/stocks/update";
 export const STOCKS_DELETE = "/stocks/delete";
+export const STOCKS_LIST_DROPDOWN = "/stocks/dropdown";
+
 // customers
 export const CUSTOMERS_LIST = "/customers/list";
 export const CUSTOMERS_ADD = "/customers/add";

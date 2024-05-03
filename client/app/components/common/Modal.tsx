@@ -3,54 +3,62 @@ import { ObjectData } from "../helper/types";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import crossIcon from "../../../public/images/cross_mark.png";
+import Dropdown from "./Dropdown";
 
 const Modal = ({
   show,
+  setShow,
   fields,
-  handleClose,
+  onClose,
+  options,
 }: {
   show: boolean;
+  setShow: (show: boolean) => void;
   fields: ObjectData;
-  handleClose: () => void;
+  onClose: (submiData: ObjectData) => void;
+  options: ObjectData[];
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [itemName, setItemName] = useState("");
-  const [openingStocks, setOpeningStocks] = useState("");
-  const [partNumber, setPartNumber] = useState("");
-  const [price, setPrice] = useState("");
   const popupRef = useRef<HTMLDivElement>(null);
+  const [submitData, setSubmitData] = useState<ObjectData>({});
 
-  const handleClickOutside = (event: any) => {
+  const handleClickOutside = (event: ObjectData) => {
     if (popupRef.current && !popupRef.current.contains(event.target)) {
-      setIsOpen(false);
+      setShow(false);
     }
   };
 
   const handleOnSubmit = () => {
-    console.log("Clicked submit button");
-    setIsOpen(false);
+    setShow(false);
+    onClose(submitData);
   };
 
   const handleClickOnCrossIcon = () => {
-    console.log("Clicked cross icon");
-    setIsOpen(false);
+    setShow(false);
   };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleInput = (key: string, value: string) => {
+    setSubmitData({
+      ...submitData,
+      [key]: value,
+    });
+  };
+
+  const handleDropdown = (key: string, selected: ObjectData) => {
+    const updatedPatientData = {
+      ...submitData,
+      [key]: selected.id,
+      [key.replace("id", "name")]: selected.name,
+    };
+    setSubmitData(updatedPatientData);
+  };
+
   return (
     <>
-      <div className="flex flex-row-reverse">
-        <button
-          className=" bg-[#F3F8ED] hover:bg-[#80B537] hover:text-white hover:border-[#80B537] text-[14px] text-[050505] font-['Figtree-Regular'] py-1 px-2 border border-[#050505] rounded-sm"
-          onClick={() => setIsOpen(true)}
-        >
-          Add Item
-        </button>
-      </div>
-      {isOpen && (
+      {show && (
         <div className="absolute  z-10 inset-0">
           <div className="flex items-center align-middle justify-center text-center h-screen">
             <div className="absolute inset-0 transition-opacity">
@@ -82,21 +90,47 @@ const Modal = ({
                 >
                   {fields?.stocks?.fields.map(
                     (data: ObjectData, index: number) => (
-                      <div className="mb-4 w-[400px]">
-                        <label
-                          htmlFor={data.key}
-                          className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
-                        >
-                          {data.name}
-                        </label>
-                        <input
-                          type={data.type}
-                          id={data.key}
-                          className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          placeholder={data.placeHolder}
-                          // value={itemName}
-                          // onChange={(e) => setItemName(e.target.value)}
-                        />
+                      <div key={index}>
+                        {data.type != "dropdown" && (
+                          <div className="mb-4 w-[400px]">
+                            <label
+                              htmlFor={data.key}
+                              className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
+                            >
+                              {data.name}
+                            </label>
+                            <input
+                              type={data.type}
+                              id={data.key}
+                              className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              placeholder={data.placeHolder}
+                              value={submitData[data.key]}
+                              onChange={(e) =>
+                                handleInput(data.key, e.target.value)
+                              }
+                            />
+                          </div>
+                        )}
+                        {data.type == "dropdown" &&
+                          options &&
+                          options?.length > 0 && (
+                            <div>
+                              <label className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2">
+                                {data.name}
+                              </label>
+                              <Dropdown
+                                options={options}
+                                selected={
+                                  submitData[data.key.replace("id", "name")] ||
+                                  data.placeHolder
+                                }
+                                placeholder={data[data.key] ? false : true}
+                                onSelectChange={(option: ObjectData) =>
+                                  handleDropdown(data.key, option)
+                                }
+                              />
+                            </div>
+                          )}
                       </div>
                     ),
                   )}
@@ -119,75 +153,3 @@ const Modal = ({
 };
 
 export default Modal;
-
-{
-  /* <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all">
-              <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div className="sm:flex sm:items-start">
-
-                  <div className="w-full flex flex-wrap" style={{alignContent: "space-between"}}>
-                    <div className="mb-4">
-                      <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
-                      <input
-                        type="text"
-                        id="name"
-                        className="w-[300px] shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </div>
-                    <div className="mb-4">
-                      <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
-                      <input
-                        type="text"
-                        id="name"
-                        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </div>
-                    <div className="mb-4">
-                      <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
-                      <input
-                        type="text"
-                        id="name"
-                        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </div>
-                    <div className="mb-4">
-                      <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
-                      <input
-                        type="text"
-                        id="name"
-                        className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        placeholder="Enter name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button
-                  type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={handleSubmit}
-                >
-                  Submit
-                </button>
-                <button
-                  type="button"
-                  className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div> */
-}

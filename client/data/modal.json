@@ -15,16 +15,22 @@
         "placeHolder": "Enter the part number"
       },
       {
-        "name": "Stocks On Hand",
+        "name": "Opening Stocks",
         "type": "number",
-        "key": "stocks_on_hand",
-        "placeHolder": "Enter the stocks on hand"
+        "key": "opening_stocks",
+        "placeHolder": "Enter the opening stocks"
       },
       {
         "name": "Price",
         "type": "number",
         "key": "price",
         "placeHolder": "Enter the price"
+      },
+      {
+        "name": "Test",
+        "type": "dropdown",
+        "key": "test_id",
+        "placeHolder": "Select the item"
       }
     ]
   }

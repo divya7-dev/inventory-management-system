@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import eyeHidden from "../../../public/images/eye_hidden.png";
 import eyeOpen from "../../../public/images/eye_open.png";
 import Image from "next/image";
 
-const LoginButton = ({ email, password }: { email: any; password: any }) => {
+const LoginButton = ({ email, password }: { email: string; password: string }) => {
   const { pending } = useFormStatus();
   const router = useRouter();
   const handleLogin = () => {
