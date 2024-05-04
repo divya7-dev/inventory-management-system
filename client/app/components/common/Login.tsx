@@ -7,7 +7,13 @@ import eyeHidden from "../../../public/images/eye_hidden.png";
 import eyeOpen from "../../../public/images/eye_open.png";
 import Image from "next/image";
 
-const LoginButton = ({ email, password }: { email: string; password: string }) => {
+const LoginButton = ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) => {
   const { pending } = useFormStatus();
   const router = useRouter();
   const handleLogin = () => {

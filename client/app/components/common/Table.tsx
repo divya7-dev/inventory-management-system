@@ -42,21 +42,21 @@ export default function Table({ tableData }: { tableData: ObjectData }) {
                     >
                       {tableObj[item]}
                       {item == "price" && " INR"}
-                      {item == "Actions" && (
+                      {item == "actions" && (
                         <div className="flex items-center justify-start gap-2">
                           <Image
-                            width={20}
-                            height={20}
-                            src={bin}
-                            alt="bin button"
+                            width={15}
+                            height={15}
+                            src={edit}
+                            alt="edit button"
                             className="cursor-pointer"
                           />
                           <Image
-                            width={20}
-                            height={20}
-                            src={edit}
-                            alt="edit button"
-                            className="cursor-pointer"  
+                            width={15}
+                            height={15}
+                            src={bin}
+                            alt="bin button"
+                            className="cursor-pointer"
                           />
                         </div>
                       )}

@@ -16,6 +16,7 @@ import {
   STOCKS_LIST,
   STOCKS_LIST_DROPDOWN,
 } from "../components/helper/urls";
+import { addActionToData } from "../components/helper/utils";
 
 const Stocks = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -28,7 +29,7 @@ const Stocks = () => {
       "Opening Stocks",
       "Stocks On Hand",
       "Price",
-      "Actions"
+      "Actions",
     ],
     data: [],
   });
@@ -46,7 +47,7 @@ const Stocks = () => {
       params: {},
       callback: (response) => {
         if (response.status == 200) {
-          let dataWithAction = addActionToData(response.data.data)
+          const dataWithAction = addActionToData(response.data.data);
           setStocks({ ...stocks, data: dataWithAction });
         } else {
           console.log("error");
@@ -54,14 +55,6 @@ const Stocks = () => {
       },
     });
   };
-
-  const addActionToData = (data: ObjectData) => {
-    const newData = data.map((item: any) => ({
-      ...item,
-      Actions: ""
-    }));
-    return newData
-  }
 
   const getStocksDropdown = () => {
     getAPI({
