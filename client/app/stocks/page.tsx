@@ -20,7 +20,7 @@ import {
 const Stocks = () => {
   const [show, setShow] = useState<boolean>(false);
   const [stocks, setStocks] = useState<ObjectData>({
-    width: ["80px", "150px", "100px", "100px", "100px", "100px"],
+    width: ["80px", "150px", "100px", "100px", "100px", "100px", "80px"],
     headers: [
       "S. No",
       "Item Name",
@@ -28,6 +28,7 @@ const Stocks = () => {
       "Opening Stocks",
       "Stocks On Hand",
       "Price",
+      "Actions"
     ],
     data: [],
   });
@@ -45,13 +46,22 @@ const Stocks = () => {
       params: {},
       callback: (response) => {
         if (response.status == 200) {
-          setStocks({ ...stocks, data: response.data.data });
+          let dataWithAction = addActionToData(response.data.data)
+          setStocks({ ...stocks, data: dataWithAction });
         } else {
           console.log("error");
         }
       },
     });
   };
+
+  const addActionToData = (data: ObjectData) => {
+    const newData = data.map((item: any) => ({
+      ...item,
+      Actions: ""
+    }));
+    return newData
+  }
 
   const getStocksDropdown = () => {
     getAPI({
@@ -99,8 +109,8 @@ const Stocks = () => {
         </div>
         <div className="mt-10">
           <button
-            className="float-right bg-[#F3F8ED] hover:bg-[#80B537] hover:text-white hover:border-[#80B537] text-[14px] text-[050505] font-['Figtree-Regular'] 
-            py-1 px-2 border border-[#050505] rounded-sm mb-4"
+            className="float-right bg-[#80B537] text-center text-[#ffffff] text-[14px] text-[050505] font-['Figtree-Regular'] 
+            py-1.5 px-2 rounded-sm mb-4"
             onClick={() => setShow(true)}
           >
             Add Item

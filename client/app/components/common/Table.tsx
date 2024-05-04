@@ -42,7 +42,7 @@ export default function Table({ tableData }: { tableData: ObjectData }) {
                     >
                       {tableObj[item]}
                       {item == "price" && " INR"}
-                      {tableData.headers[childIndex] == "Actions" && (
+                      {item == "Actions" && (
                         <div className="flex items-center justify-start gap-2">
                           <Image
                             width={20}
