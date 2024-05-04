@@ -1,6 +1,5 @@
 {
   "stocks": {
-    "header": "Add Stock",
     "fields": [
       {
         "name": "Item Name",

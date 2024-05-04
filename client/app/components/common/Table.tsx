@@ -2,11 +2,26 @@ import { ObjectData } from "../helper/types";
 import Image from "next/image";
 import bin from "../../../public/images/bin.png";
 import edit from "../../../public/images/pen.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DeletePopUp from "../common/DeletePopUp";
 
-export default function Table({ tableData }: { tableData: ObjectData }) {
+export default function Table({
+  tableData,
+  onEdit,
+  onDelete,
+}: {
+  tableData: ObjectData;
+  onEdit: (data: ObjectData) => void;
+  onDelete: (id: number) => void;
+}) {
   const [show, setShow] = useState<boolean>(false);
+  const [deleteId, setDeleteId] = useState<number>(-1);
+
+  const handleDelete = (isDelete: boolean) => {
+    if (isDelete) {
+      onDelete(deleteId);
+    }
+  };
 
   return (
     <div className="mt-3">
@@ -54,6 +69,7 @@ export default function Table({ tableData }: { tableData: ObjectData }) {
                             src={edit}
                             alt="edit button"
                             className="cursor-pointer"
+                            onClick={() => onEdit(tableObj)}
                           />
                           <Image
                             width={15}
@@ -61,18 +77,21 @@ export default function Table({ tableData }: { tableData: ObjectData }) {
                             src={bin}
                             alt="bin button"
                             className="cursor-pointer"
-                            onClick={() => setShow(true)}
+                            onClick={() => {
+                              setShow(true);
+                              setDeleteId(tableObj.id);
+                            }}
                           />
                         </div>
                       )}
                     </td>
-                  )
+                  ),
               )}
             </tr>
           ))}
         </tbody>
       </table>
-      <DeletePopUp show={show} setShow={setShow} />
+      <DeletePopUp show={show} setShow={setShow} onDelete={handleDelete} />
     </div>
   );
 }

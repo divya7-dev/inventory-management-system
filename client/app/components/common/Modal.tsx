@@ -1,25 +1,30 @@
 "use client";
 import { ObjectData } from "../helper/types";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import crossIcon from "../../../public/images/cross_mark.png";
 import Dropdown from "./Dropdown";
 
 const Modal = ({
+  header,
   show,
   setShow,
   fields,
   onClose,
   options,
+  submitData,
+  setSubmitData,
 }: {
+  header: string;
   show: boolean;
   setShow: (show: boolean) => void;
   fields: ObjectData;
   onClose: (submiData: ObjectData) => void;
   options: ObjectData[];
+  submitData: ObjectData;
+  setSubmitData: (data: ObjectData) => void;
 }) => {
   const popupRef = useRef<HTMLDivElement>(null);
-  const [submitData, setSubmitData] = useState<ObjectData>({});
 
   const handleClickOutside = (event: ObjectData) => {
     if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -39,6 +44,8 @@ const Modal = ({
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
   }, []);
+
+  console.log("[MODAL] ", submitData);
 
   const handleInput = (key: string, value: string) => {
     setSubmitData({
@@ -82,58 +89,56 @@ const Modal = ({
                     " mb-10 text-gray-700 font-['Figtree-Bold'] text-lg"
                   }
                 >
-                  Add Item
+                  {header}
                 </p>
                 <div
                   className="w-full flex flex-wrap  justify-between"
                   style={{ alignContent: "space-between" }}
                 >
-                  {fields?.stocks?.fields.map(
-                    (data: ObjectData, index: number) => (
-                      <div key={index}>
-                        {data.type != "dropdown" && (
-                          <div className="mb-4 w-[400px]">
-                            <label
-                              htmlFor={data.key}
-                              className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
-                            >
+                  {fields?.fields.map((data: ObjectData, index: number) => (
+                    <div key={index}>
+                      {data.type != "dropdown" && (
+                        <div className="mb-4 w-[400px]">
+                          <label
+                            htmlFor={data.key}
+                            className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2"
+                          >
+                            {data.name}
+                          </label>
+                          <input
+                            type={data.type}
+                            id={data.key}
+                            className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            placeholder={data.placeHolder}
+                            value={submitData[data.key]}
+                            onChange={(e) =>
+                              handleInput(data.key, e.target.value)
+                            }
+                          />
+                        </div>
+                      )}
+                      {data.type == "dropdown" &&
+                        options &&
+                        options?.length > 0 && (
+                          <div>
+                            <label className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2">
                               {data.name}
                             </label>
-                            <input
-                              type={data.type}
-                              id={data.key}
-                              className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                              placeholder={data.placeHolder}
-                              value={submitData[data.key]}
-                              onChange={(e) =>
-                                handleInput(data.key, e.target.value)
+                            <Dropdown
+                              options={options}
+                              selected={
+                                submitData[data.key.replace("id", "name")] ||
+                                data.placeHolder
+                              }
+                              placeholder={data[data.key] ? false : true}
+                              onSelectChange={(option: ObjectData) =>
+                                handleDropdown(data.key, option)
                               }
                             />
                           </div>
                         )}
-                        {data.type == "dropdown" &&
-                          options &&
-                          options?.length > 0 && (
-                            <div>
-                              <label className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2">
-                                {data.name}
-                              </label>
-                              <Dropdown
-                                options={options}
-                                selected={
-                                  submitData[data.key.replace("id", "name")] ||
-                                  data.placeHolder
-                                }
-                                placeholder={data[data.key] ? false : true}
-                                onSelectChange={(option: ObjectData) =>
-                                  handleDropdown(data.key, option)
-                                }
-                              />
-                            </div>
-                          )}
-                      </div>
-                    ),
-                  )}
+                    </div>
+                  ))}
                 </div>
                 <div className="flex flex-row-reverse mt-5">
                   <button

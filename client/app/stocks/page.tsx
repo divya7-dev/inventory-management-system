@@ -7,19 +7,24 @@ import Table from "../components/common/Table";
 import Modal from "../components/common/Modal";
 
 // Data
-import fields from "../../data/modal.json";
+import fieldsData from "../../data/modal.json";
 import { ObjectData } from "../components/helper/types";
-import { getAPI, postAPI } from "../components/helper/api";
+import { getAPI, postAPI, putAPI, deleteAPI } from "../components/helper/api";
 import {
   BASE_URL,
   STOCKS_ADD,
   STOCKS_LIST,
   STOCKS_LIST_DROPDOWN,
+  STOCKS_UPDATE,
+  STOCKS_DELETE,
 } from "../components/helper/urls";
 import { addActionToData } from "../components/helper/utils";
 
 const Stocks = () => {
   const [show, setShow] = useState<boolean>(false);
+  const [fields, setFields] = useState<ObjectData>({});
+  const [submitData, setSubmitData] = useState<ObjectData>({});
+  const [isEdit, setEdit] = useState<boolean>(false);
   const [stocks, setStocks] = useState<ObjectData>({
     width: ["80px", "150px", "100px", "100px", "100px", "100px", "80px"],
     headers: [
@@ -36,8 +41,8 @@ const Stocks = () => {
   const [stocksDropdown, setStocksDropdown] = useState<ObjectData[]>([]);
 
   useEffect(() => {
-    getStocks();
-    getStocksDropdown();
+    refreshPage();
+    setFields(fieldsData.stocks);
   }, []);
 
   const getStocks = () => {
@@ -88,10 +93,61 @@ const Stocks = () => {
     });
   };
 
+  const putStocks = (data: ObjectData) => {
+    putAPI({
+      baseUrl: BASE_URL,
+      endpoint: STOCKS_UPDATE,
+      params: {},
+      data: data,
+      callback: (response) => {
+        if (response.status == 200) {
+          refreshPage();
+        } else {
+          console.log("error");
+        }
+      },
+    });
+  };
+
+  const deleteStocks = (id: number) => {
+    deleteAPI({
+      baseUrl: BASE_URL,
+      endpoint: `${STOCKS_DELETE}/${id}`,
+      params: {},
+      callback: (response) => {
+        if (response.status == 200) {
+          refreshPage();
+        } else {
+          console.log("error");
+        }
+      },
+    });
+  };
+
   const handleClose = (data: ObjectData) => {
     setShow(false);
-    postStocks(data);
-    console.log("[ADD] ", data);
+
+    if (isEdit) {
+      setEdit(false);
+      putStocks(data);
+    } else {
+      postStocks(data);
+    }
+  };
+
+  const handleEdit = (data: ObjectData) => {
+    setEdit(true);
+    setShow(true);
+    setSubmitData(data);
+  };
+
+  const handleDelete = (id: number) => {
+    deleteStocks(id);
+  };
+
+  const refreshPage = () => {
+    getStocks();
+    getStocksDropdown();
   };
 
   return (
@@ -104,18 +160,31 @@ const Stocks = () => {
           <button
             className="float-right bg-[#80B537] text-center text-[#ffffff] text-[14px] text-[050505] font-['Figtree-Regular'] 
             py-1.5 px-2 rounded-sm mb-4"
-            onClick={() => setShow(true)}
+            onClick={() => {
+              setShow(true);
+              setEdit(false);
+              setSubmitData({});
+            }}
           >
-            Add Item
+            Add Stock
           </button>
-          <Modal
-            show={show}
-            setShow={setShow}
-            fields={fields}
-            onClose={handleClose}
-            options={stocksDropdown}
+          {((isEdit && Object.keys(submitData)?.length > 0) || !isEdit) && (
+            <Modal
+              header={isEdit ? "Edit Stock" : "Add Stock"}
+              show={show}
+              setShow={setShow}
+              fields={fields}
+              onClose={handleClose}
+              options={stocksDropdown}
+              submitData={submitData}
+              setSubmitData={setSubmitData}
+            />
+          )}
+          <Table
+            tableData={stocks}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
           />
-          <Table tableData={stocks} />
         </div>
       </div>
     </Layout>

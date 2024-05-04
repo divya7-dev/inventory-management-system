@@ -2,13 +2,16 @@
 import { useRef, useEffect } from "react";
 import Image from "next/image";
 import crossIcon from "../../../public/images/cross_mark.png";
+import { ObjectData } from "../helper/types";
 
 const DeletePopUp = ({
   show,
   setShow,
+  onDelete,
 }: {
   show: boolean;
   setShow: (show: boolean) => void;
+  onDelete: (isDelete: boolean) => void;
 }) => {
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -16,14 +19,10 @@ const DeletePopUp = ({
     document.addEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleClickOutside = (event: any) => {
+  const handleClickOutside = (event: ObjectData) => {
     if (popupRef.current && !popupRef.current.contains(event.target)) {
       setShow(false);
     }
-  };
-
-  const handleClickOnCrossIcon = () => {
-    setShow(false);
   };
 
   return (
@@ -44,7 +43,7 @@ const DeletePopUp = ({
                   height={20}
                   className="absolute top-0 right-0 m-2 cursor-pointer"
                   src={crossIcon}
-                  onClick={handleClickOnCrossIcon}
+                  onClick={() => setShow(false)}
                   alt="cross icon"
                 ></Image>
                 <p
@@ -62,14 +61,17 @@ const DeletePopUp = ({
                     <button
                       className="float-right bg-white text-center text-[#050505] text-[14px] font-['Figtree-Regular'] border border-[#050505]
                     py-1.5 px-5 rounded-sm"
-                      onClick={handleClickOnCrossIcon}
+                      onClick={() => setShow(false)}
                     >
                       Cancel
                     </button>
                     <button
                       className="float-right bg-[#80B537] text-center text-[#ffffff] text-[14px] font-['Figtree-Regular'] 
                     py-1.5 px-5 rounded-sm"
-                      onClick={handleClickOnCrossIcon}
+                      onClick={() => {
+                        setShow(false);
+                        onDelete(true);
+                      }}
                     >
                       Confirm
                     </button>
