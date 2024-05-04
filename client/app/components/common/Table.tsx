@@ -1,4 +1,7 @@
 import { ObjectData } from "../helper/types";
+import Image from "next/image";
+import bin from "../../../public/images/bin.png";
+import edit from "../../../public/images/pen.png";
 
 export default function Table({ tableData }: { tableData: ObjectData }) {
   return (
@@ -39,6 +42,24 @@ export default function Table({ tableData }: { tableData: ObjectData }) {
                     >
                       {tableObj[item]}
                       {item == "price" && " INR"}
+                      {tableData.headers[childIndex] == "Actions" && (
+                        <div className="flex items-center justify-start gap-2">
+                          <Image
+                            width={20}
+                            height={20}
+                            src={bin}
+                            alt="bin button"
+                            className="cursor-pointer"
+                          />
+                          <Image
+                            width={20}
+                            height={20}
+                            src={edit}
+                            alt="edit button"
+                            className="cursor-pointer"  
+                          />
+                        </div>
+                      )}
                     </td>
                   ),
               )}

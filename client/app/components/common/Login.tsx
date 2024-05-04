@@ -89,7 +89,7 @@ const Login = () => {
                   <Image
                     width={30}
                     height={30}
-                    className="inset-y-0 right-0 pr-3 flex items-center justify-center"
+                    className="inset-y-0 right-0 pr-3 flex items-center justify-center cursor-pointer"
                     src={showPassword ? eyeHidden : eyeOpen}
                     onClick={() => setShowPassword(!showPassword)}
                     alt="password eye icon"

@@ -137,7 +137,8 @@ const Modal = ({
                 </div>
                 <div className="flex flex-row-reverse mt-5">
                   <button
-                    className="hover:bg-[#80B537] hover:text-white hover:border-[#80B537] text-[14px] text-[050505] border font-['Figtree-Regular'] border-[#dedddd] py-1.5 px-4 rounded shadow"
+                    className="float-right bg-[#80B537] text-center text-[#ffffff] text-[14px] text-[050505] font-['Figtree-Regular'] 
+                    py-1.5 px-2 rounded-sm mb-4"
                     onClick={handleOnSubmit}
                   >
                     Submit
