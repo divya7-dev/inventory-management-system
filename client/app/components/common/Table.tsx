@@ -2,8 +2,12 @@ import { ObjectData } from "../helper/types";
 import Image from "next/image";
 import bin from "../../../public/images/bin.png";
 import edit from "../../../public/images/pen.png";
+import { useEffect, useState } from "react";
+import DeletePopUp from "../common/DeletePopUp";
 
 export default function Table({ tableData }: { tableData: ObjectData }) {
+  const [show, setShow] = useState<boolean>(false);
+
   return (
     <div className="mt-3">
       <table className="w-full ">
@@ -57,16 +61,18 @@ export default function Table({ tableData }: { tableData: ObjectData }) {
                             src={bin}
                             alt="bin button"
                             className="cursor-pointer"
+                            onClick={() => setShow(true)}
                           />
                         </div>
                       )}
                     </td>
-                  ),
+                  )
               )}
             </tr>
           ))}
         </tbody>
       </table>
+      <DeletePopUp show={show} setShow={setShow} />
     </div>
   );
 }
