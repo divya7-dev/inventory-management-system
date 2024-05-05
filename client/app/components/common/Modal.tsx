@@ -108,7 +108,7 @@ const Modal = ({
                           <input
                             type={data.type}
                             id={data.key}
-                            className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="w-full shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline placeholder:text-[#adadad] placeholder:font-['Figtree-Light']"
                             placeholder={data.placeHolder}
                             value={submitData[data.key]}
                             onChange={(e) =>
