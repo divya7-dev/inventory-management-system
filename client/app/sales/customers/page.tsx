@@ -8,7 +8,7 @@ import Table from "../../components/common/Table";
 import Modal from "../../components/common/Modal";
 
 // Data
-import fieldsData from "../../../data/customers_model.json";
+import fieldsData from "../../../data/modal.json";
 import { ObjectData } from "../../components/helper/types";
 import { getAPI, postAPI, putAPI, deleteAPI } from "../../components/helper/api";
 import {
@@ -40,7 +40,7 @@ const Customers = () => {
 
   useEffect(() => {
     refreshPage();
-    setFields(fieldsData.stocks);
+    setFields(fieldsData.customers);
   }, []);
 
   const getCustomers = () => {

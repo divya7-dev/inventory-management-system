@@ -38,7 +38,7 @@ const Stocks = () => {
     ],
     data: [],
   });
-  const [stocksDropdown, setStocksDropdown] = useState<ObjectData[]>([]);
+  const [stocksDropdown, setStocksDropdown] = useState<ObjectData>({});
 
   useEffect(() => {
     refreshPage();
@@ -68,7 +68,10 @@ const Stocks = () => {
       params: {},
       callback: (response) => {
         if (response.status == 200) {
-          setStocksDropdown(response.data.data);
+          const stocksDropDownWithKey: ObjectData = {
+            "test_id": response.data.data
+          };
+          setStocksDropdown(stocksDropDownWithKey);
         } else {
           console.log("error");
         }

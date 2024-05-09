@@ -32,5 +32,61 @@
         "placeHolder": "Select the item"
       }
     ]
+  },
+  "customers": {
+    "fields": [
+      {
+        "name": "Name",
+        "type": "text",
+        "key": "name",
+        "placeHolder": "Enter the name"
+      },
+      {
+        "name": "Email",
+        "type": "text",
+        "key": "email",
+        "placeHolder": "Enter the email"
+      },
+      {
+        "name": "Contact Number",
+        "type": "number",
+        "key": "contact_number",
+        "placeHolder": "Enter the contact number"
+      },
+      {
+        "name": "Address",
+        "type": "text",
+        "key": "address",
+        "placeHolder": "Enter the address"
+      }
+    ]
+  },
+  "invoices": {
+    "fields": [
+      {
+        "name": "Invoice Number",
+        "type": "text",
+        "key": "invoice_number",
+        "placeHolder": "Enter the invoice number"
+      },
+      {
+        "name": "Customer Name",
+        "type": "dropdown",
+        "key": "customer_id",
+        "placeHolder": "Enter the customer name"
+      },
+      {
+        "name": "Item Name",
+        "type": "dropdown",
+        "key": "item_id",
+        "placeHolder": "Enter the item name"
+      },
+      {
+        "name": "Items Count",
+        "type": "number",
+        "key": "items_count",
+        "placeHolder": "Enter the item count"
+      }
+    ]
   }
 }

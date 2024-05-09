@@ -20,7 +20,7 @@ const Modal = ({
   setShow: (show: boolean) => void;
   fields: ObjectData;
   onClose: (submiData: ObjectData) => void;
-  options: ObjectData[];
+  options: ObjectData;
   submitData: ObjectData;
   setSubmitData: (data: ObjectData) => void;
 }) => {
@@ -119,13 +119,14 @@ const Modal = ({
                       )}
                       {data.type == "dropdown" &&
                         options &&
-                        options?.length > 0 && (
+                        options.hasOwnProperty(data.key) &&
+                        options[data.key]?.length > 0 && (
                           <div>
                             <label className="block text-gray-700 text-sm font-['Figtree-Bold'] mb-2">
                               {data.name}
                             </label>
                             <Dropdown
-                              options={options}
+                              options={options[data.key]}
                               selected={
                                 submitData[data.key.replace("id", "name")] ||
                                 data.placeHolder

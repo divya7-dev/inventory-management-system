@@ -16,6 +16,7 @@ export const INVOICES_LIST = "/invoices/list";
 export const INVOICES_ADD = "/invoices/add";
 export const INVOICES_UPDATE = "/invoices/update";
 export const INVOICES_DELETE = "/invoices/delete";
+export const CUSTOMERS_LIST_DROPDOWN = "/customers/dropdown";
 // vendors
 export const VENDORS_LIST = "/vendors/list";
 export const VENDORS_ADD = "/vendors/add";
