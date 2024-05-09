@@ -88,5 +88,61 @@
         "placeHolder": "Enter the item count"
       }
     ]
+  },
+  "vendors": {
+    "fields": [
+      {
+        "name": "Name",
+        "type": "text",
+        "key": "name",
+        "placeHolder": "Enter the name"
+      },
+      {
+        "name": "Email",
+        "type": "text",
+        "key": "email",
+        "placeHolder": "Enter the email"
+      },
+      {
+        "name": "Contact Number",
+        "type": "number",
+        "key": "contact_number",
+        "placeHolder": "Enter the contact number"
+      },
+      {
+        "name": "Address",
+        "type": "text",
+        "key": "address",
+        "placeHolder": "Enter the address"
+      }
+    ]
+  },
+  "bills": {
+    "fields": [
+      {
+        "name": "Bill Number",
+        "type": "text",
+        "key": "bill_number",
+        "placeHolder": "Enter the bill number"
+      },
+      {
+        "name": "Vendor Name",
+        "type": "dropdown",
+        "key": "vendor_id",
+        "placeHolder": "Enter the vendor name"
+      },
+      {
+        "name": "Item Name",
+        "type": "dropdown",
+        "key": "item_id",
+        "placeHolder": "Enter the item name"
+      },
+      {
+        "name": "Items Count",
+        "type": "number",
+        "key": "items_count",
+        "placeHolder": "Enter the item count"
+      }
+    ]
   }
 }

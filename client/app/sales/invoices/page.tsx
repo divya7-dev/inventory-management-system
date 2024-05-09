@@ -19,7 +19,7 @@ import {
   CUSTOMERS_LIST_DROPDOWN,
   STOCKS_LIST_DROPDOWN
 } from "../../components/helper/urls";
-import { addActionToData, updateDateFormat, formatDate } from "../../components/helper/utils";
+import { addActionToData, updateDateFormat } from "../../components/helper/utils";
 
 const Invoices = () => {
   const [show, setShow] = useState<boolean>(false);

@@ -27,3 +27,4 @@ export const BILLS_LIST = "/bills/list";
 export const BILLS_ADD = "/bills/add";
 export const BILLS_UPDATE = "/bills/update";
 export const BILLS_DELETE = "/bills/delete";
+export const VENDORS_LIST_DROPDOWN = "/vendors/dropdown";

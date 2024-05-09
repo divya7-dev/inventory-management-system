@@ -12,7 +12,7 @@ export const addActionToData = (data: ObjectData) => {
 export const updateDateFormat = (data: ObjectData) => {
   data.forEach((item: ObjectData) => {
     if (item.hasOwnProperty("date")) {
-      let formattedDate = formatDate(item.date)
+      const formattedDate = formatDate(item.date)
       item.date = formattedDate;
     }
   });
@@ -24,3 +24,12 @@ export const formatDate = (utcTime: string) => {
   const formattedDate = format(date, "MMM dd, yyyy");
   return formattedDate
 };
+
+export const updateKey = ({data, oldkey, newkey}: {data: ObjectData, oldkey: string, newkey: string}) => {
+  data.forEach((item: ObjectData) => {
+    if (item.hasOwnProperty(oldkey)) {
+      item[newkey] = item[oldkey];
+    }
+  });
+  return data
+}
