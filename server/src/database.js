@@ -186,7 +186,7 @@ export async function getCustomersDropdown() {
 export async function getInvoices() {
   try {
     const [data] = await pool.query(`
-      SELECT invoices.date, invoices.invoice_number, customers.name AS customer_name, stocks.item_name, invoices.items_count
+      SELECT invoices.id, invoices.date, invoices.invoice_number, customers.name AS customer_name, stocks.item_name, invoices.items_count
       FROM invoices
       INNER JOIN customers ON invoices.customer_id = customers.id
       INNER JOIN stocks ON invoices.item_id = stocks.id
