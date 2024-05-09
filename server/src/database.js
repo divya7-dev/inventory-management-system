@@ -186,7 +186,7 @@ export async function getCustomersDropdown() {
 export async function getInvoices() {
   try {
     const [data] = await pool.query(`
-      SELECT invoices.id, invoices.date, invoices.invoice_number, customers.name AS customer_name, stocks.item_name, invoices.items_count
+      SELECT invoices.id, invoices.date, invoices.invoice_number, customers.id AS customer_id, customers.name AS customer_name, stocks.item_name, stocks.id as item_id, invoices.items_count
       FROM invoices
       INNER JOIN customers ON invoices.customer_id = customers.id
       INNER JOIN stocks ON invoices.item_id = stocks.id
@@ -357,7 +357,7 @@ export async function getVendorsDropdown() {
 export async function getBills() {
   try {
     const [data] = await pool.query(`
-      SELECT bills.date, bills.bill_number, vendors.name AS vendor_name, stocks.item_name, bills.items_count
+      SELECT bills.date, bills.bill_number, vendors.name AS vendor_name, vendors.id AS vendor_id, stocks.item_name, stocks.id AS item_id, bills.items_count
       FROM bills
       INNER JOIN vendors ON bills.vendor_id = vendors.id
       INNER JOIN stocks ON bills.item_id = stocks.id
