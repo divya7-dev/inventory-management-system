@@ -357,7 +357,7 @@ export async function getVendorsDropdown() {
 export async function getBills() {
   try {
     const [data] = await pool.query(`
-      SELECT bills.date, bills.bill_number, vendors.name AS vendor_name, vendors.id AS vendor_id, stocks.item_name, stocks.id AS item_id, bills.items_count
+      SELECT bills.id, bills.date, bills.bill_number, vendors.name AS vendor_name, vendors.id AS vendor_id, stocks.item_name, stocks.id AS item_id, bills.items_count
       FROM bills
       INNER JOIN vendors ON bills.vendor_id = vendors.id
       INNER JOIN stocks ON bills.item_id = stocks.id
