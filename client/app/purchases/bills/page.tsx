@@ -59,7 +59,6 @@ const Bills = () => {
       params: {},
       callback: (response) => {
         if (response.status == 200) {
-          updateKey({ data: response.data.data, oldkey: "vendor_id", newkey: "id" });
           const dateFormated = updateDateFormat(response.data.data)
           const dataWithAction = addActionToData(dateFormated);
           setBills({ ...bills, data: dataWithAction });
