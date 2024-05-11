@@ -10,7 +10,12 @@ import Modal from "../../components/common/Modal";
 // Data
 import fieldsData from "../../../data/modal.json";
 import { ObjectData } from "../../components/helper/types";
-import { getAPI, postAPI, putAPI, deleteAPI } from "../../components/helper/api";
+import {
+  getAPI,
+  postAPI,
+  putAPI,
+  deleteAPI,
+} from "../../components/helper/api";
 import {
   BASE_URL,
   CUSTOMERS_ADD,
@@ -26,15 +31,8 @@ const Customers = () => {
   const [submitData, setSubmitData] = useState<ObjectData>({});
   const [isEdit, setEdit] = useState<boolean>(false);
   const [customers, setCustomers] = useState<ObjectData>({
-    width: ["80px", "100px", "150px", "100px", "150px",  "80px"],
-    headers: [
-      "S. No",
-      "Name",
-      "Email",
-      "Contact Number",
-      "Address",
-      "Actions",
-    ],
+    width: ["50px", "150px", "150px", "100px", "150px", "80px"],
+    headers: ["S. No", "Name", "Email", "Contact Number", "Address", "Actions"],
     data: [],
   });
 

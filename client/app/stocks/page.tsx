@@ -69,7 +69,7 @@ const Stocks = () => {
       callback: (response) => {
         if (response.status == 200) {
           const stocksDropDownWithKey: ObjectData = {
-            "test_id": response.data.data
+            test_id: response.data.data,
           };
           setStocksDropdown(stocksDropDownWithKey);
         } else {

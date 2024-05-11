@@ -131,7 +131,11 @@ const Modal = ({
                                 submitData[data.key.replace("id", "name")] ||
                                 data.placeHolder
                               }
-                              placeholder={data[data.key] ? false : true}
+                              placeholder={
+                                submitData[data.key.replace("id", "name")]
+                                  ? false
+                                  : true
+                              }
                               onSelectChange={(option: ObjectData) =>
                                 handleDropdown(data.key, option)
                               }

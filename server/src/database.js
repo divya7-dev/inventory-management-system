@@ -75,12 +75,20 @@ export async function updateStocks(stockData) {
 
 export async function deleteStocks(stockId) {
   try {
-    await pool.query(
-      `
+    const queryInvoices = `
+      DELETE FROM invoices WHERE item_id = ?
+    `;
+    await pool.query(queryInvoices, [stockId]);
+
+    const queryBills = `
+      DELETE FROM bills WHERE item_id = ?
+    `;
+    await pool.query(queryBills, [stockId]);
+
+    const queryStocks = `
       DELETE FROM stocks WHERE id = ?
-    `,
-      [stockId],
-    );
+    `;
+    await pool.query(queryStocks, [stockId]);
   } catch (error) {
     console.error("Database query error:", error);
     throw error;
@@ -223,7 +231,7 @@ export async function addInvoices(invoiceData) {
       invoiceData.customer_id,
       invoiceData.item_id,
       invoiceData.items_count,
-      invoiceData.price
+      invoiceData.price,
     ];
 
     await pool.query(query, values);
@@ -445,6 +453,42 @@ export async function deleteBills(billId) {
     `;
 
     await pool.query(query, [billId]);
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+// reports
+export async function getReports() {
+  try {
+    const [data] = await pool.query(`
+      SELECT stocks.id, stocks.item_name, stocks.opening_stocks, stocks.stocks_on_hand, stocks.price AS cost_price, invoices.price AS sales_price
+      FROM stocks
+      LEFT JOIN invoices ON stocks.id = invoices.item_id
+      ORDER BY stocks.id DESC
+    `);
+
+    return data.map((row) => {
+      let total_cost_price = row.opening_stocks * row.cost_price;
+      let sold_items = row.opening_stocks - row.stocks_on_hand;
+      let total_sales_price =
+        sold_items * row.sales_price + row.stocks_on_hand * row.cost_price;
+      let difference = total_sales_price - total_cost_price;
+      let status =
+        total_sales_price > total_cost_price
+          ? "Profit"
+          : total_sales_price == total_cost_price
+            ? ""
+            : "Loss";
+      let percentage = (difference / total_cost_price) * 100;
+
+      return {
+        ...row,
+        status: status,
+        percentage: Math.abs(Math.round(percentage)),
+      };
+    });
   } catch (error) {
     console.error("Database query error:", error);
     throw error;

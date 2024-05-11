@@ -53,7 +53,10 @@ export default function Table({
               </td>
               {Object.keys(tableObj).map(
                 (item: string, childIndex: number) =>
-                  (item != "id" && item != "item_id" && item != "customer_id" && item != "vendor_id") && (
+                  item != "id" &&
+                  item != "item_id" &&
+                  item != "customer_id" &&
+                  item != "vendor_id" && (
                     <td
                       key={childIndex}
                       className="text-left text-[14px] font-['Figtree-Regular'] pl-4 py-2"
@@ -61,6 +64,7 @@ export default function Table({
                     >
                       {tableObj[item]}
                       {item == "price" && " INR"}
+                      {item == "percentage" && " %"}
                       {item == "actions" && (
                         <div className="flex items-center justify-start gap-2">
                           <Image

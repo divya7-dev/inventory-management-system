@@ -9,7 +9,12 @@ import Modal from "../../components/common/Modal";
 // Data
 import fieldsData from "../../../data/modal.json";
 import { ObjectData } from "../../components/helper/types";
-import { getAPI, postAPI, putAPI, deleteAPI } from "../../components/helper/api";
+import {
+  getAPI,
+  postAPI,
+  putAPI,
+  deleteAPI,
+} from "../../components/helper/api";
 import {
   BASE_URL,
   BILLS_ADD,
@@ -17,9 +22,12 @@ import {
   BILLS_UPDATE,
   BILLS_DELETE,
   VENDORS_LIST_DROPDOWN,
-  STOCKS_LIST_DROPDOWN
+  STOCKS_LIST_DROPDOWN,
 } from "../../components/helper/urls";
-import { addActionToData, updateDateFormat, updateKey } from "../../components/helper/utils";
+import {
+  addActionToData,
+  updateDateFormat,
+} from "../../components/helper/utils";
 
 const Bills = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -27,7 +35,7 @@ const Bills = () => {
   const [submitData, setSubmitData] = useState<ObjectData>({});
   const [isEdit, setEdit] = useState<boolean>(false);
   const [bills, setBills] = useState<ObjectData>({
-    width: ["80px", "100px", "100px", "100px", "100px", "100px", "80px"],
+    width: ["50px", "100px", "100px", "150px", "100px", "100px", "80px"],
     headers: [
       "S. No",
       "Date",
@@ -49,8 +57,8 @@ const Bills = () => {
   }, []);
 
   useEffect(() => {
-    mergeDropDownData()
-  }, [vendorsDropdown, stocksDropdown])
+    mergeDropDownData();
+  }, [vendorsDropdown, stocksDropdown]);
 
   const getBills = () => {
     getAPI({
@@ -59,7 +67,7 @@ const Bills = () => {
       params: {},
       callback: (response) => {
         if (response.status == 200) {
-          const dateFormated = updateDateFormat(response.data.data)
+          const dateFormated = updateDateFormat(response.data.data);
           const dataWithAction = addActionToData(dateFormated);
           setBills({ ...bills, data: dataWithAction });
         } else {
@@ -69,7 +77,6 @@ const Bills = () => {
     });
   };
 
-
   const getStocksDropdown = () => {
     getAPI({
       baseUrl: BASE_URL,
@@ -78,7 +85,7 @@ const Bills = () => {
       callback: (response) => {
         if (response.status == 200) {
           const stocksDropDownWithKey: ObjectData = {
-            "item_id": response.data.data
+            item_id: response.data.data,
           };
           setStocksDropdown(stocksDropDownWithKey);
         } else {
@@ -86,7 +93,7 @@ const Bills = () => {
         }
       },
     });
-  }
+  };
 
   const getVendorsDropdown = () => {
     getAPI({
@@ -96,7 +103,7 @@ const Bills = () => {
       callback: (response) => {
         if (response.status == 200) {
           const vendorsDropDownWithKey: ObjectData = {
-            "vendor_id": response.data.data
+            vendor_id: response.data.data,
           };
           setVendorsDropdown(vendorsDropDownWithKey);
         } else {
@@ -104,18 +111,21 @@ const Bills = () => {
         }
       },
     });
-  }
+  };
 
   const getBillsDropDown = () => {
-    getStocksDropdown()
-    getVendorsDropdown()
+    getStocksDropdown();
+    getVendorsDropdown();
   };
 
   const mergeDropDownData = () => {
-    const dropDownOptions: ObjectData = {...stocksDropdown, ...vendorsDropdown}
-    setBillsDropdown(dropDownOptions)
-    console.log("bill dropDownOptions: ", dropDownOptions)
-  }
+    const dropDownOptions: ObjectData = {
+      ...stocksDropdown,
+      ...vendorsDropdown,
+    };
+    setBillsDropdown(dropDownOptions);
+    console.log("bill dropDownOptions: ", dropDownOptions);
+  };
 
   const postBills = (data: ObjectData) => {
     postAPI({
@@ -142,7 +152,7 @@ const Bills = () => {
       data: data,
       callback: (response) => {
         if (response.status == 200) {
-          console.log("put data bill: ", response.data.data)
+          console.log("put data bill: ", response.data.data);
           refreshPage();
         } else {
           console.log("error");
@@ -158,7 +168,7 @@ const Bills = () => {
       params: {},
       callback: (response) => {
         if (response.status == 200) {
-          console.log("delete data bill: ", id, response.data.data)
+          console.log("delete data bill: ", id, response.data.data);
           refreshPage();
         } else {
           console.log("error");
@@ -172,12 +182,12 @@ const Bills = () => {
 
     if (isEdit) {
       setEdit(false);
-      console.log("putdata: ", data)
+      console.log("putdata: ", data);
       putBills(data);
     } else {
       postBills(data);
     }
-  };     
+  };
 
   const handleEdit = (data: ObjectData) => {
     setEdit(true);

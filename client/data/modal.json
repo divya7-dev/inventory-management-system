@@ -24,12 +24,6 @@
         "type": "number",
         "key": "price",
         "placeHolder": "Enter the price"
-      },
-      {
-        "name": "Test",
-        "type": "dropdown",
-        "key": "test_id",
-        "placeHolder": "Select the item"
       }
     ]
   },
@@ -86,6 +80,12 @@
         "type": "number",
         "key": "items_count",
         "placeHolder": "Enter the item count"
+      },
+      {
+        "name": "Price",
+        "type": "number",
+        "key": "price",
+        "placeHolder": "Enter the price"
       }
     ]
   },

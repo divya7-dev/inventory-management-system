@@ -42,19 +42,29 @@ export default function Dropdown({
     onSelectChange(option);
   };
 
+  console.log("placeholder ", selected);
+
   return (
-    <div ref={dropDownRef} className="w-[400px] relative bg-white z-10 text-[14px] font-['Figtree-Regular']">
+    <div
+      ref={dropDownRef}
+      className="w-[400px] relative bg-white z-10 text-[14px] font-['Figtree-Regular']"
+    >
       <div
         className="flex flex-row items-center cursor-pointer rounded-sm"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div
-          className={`flex flex-row placeholder:font-['Figtree-Medium'] placeholder:text-[13px] align-middle 
-          ${placeholder ? "text-[#6D6D6D]" : ""} py-2 px-3 w-full shadow appearance-none border rounded leading-tight focus:outline-none focus:shadow-outline`}
+          className={`flex flex-row placeholder:font-['Figtree-Light'] placeholder:text-[13px] align-middle 
+          ${placeholder ? "text-[#adadad]" : "text-gray-700"} py-2 px-3 w-full shadow appearance-none border rounded leading-tight focus:outline-none focus:shadow-outline`}
         >
-          <p className="flex-1 text-[#adadad] font-['Figtree-Light']">{selected}</p>
+          <p>{selected}</p>
           <div className="absolute right-0 px-3">
-            <Image width={20} src={dropdownArrow} style={{ transform: isOpen ? "rotate(180deg)" : "none" }} alt="dropdown-arrow" />
+            <Image
+              width={20}
+              src={dropdownArrow}
+              style={{ transform: isOpen ? "rotate(180deg)" : "none" }}
+              alt="dropdown-arrow"
+            />
           </div>
         </div>
       </div>

@@ -9,7 +9,12 @@ import Modal from "../../components/common/Modal";
 // Data
 import fieldsData from "../../../data/modal.json";
 import { ObjectData } from "../../components/helper/types";
-import { getAPI, postAPI, putAPI, deleteAPI } from "../../components/helper/api";
+import {
+  getAPI,
+  postAPI,
+  putAPI,
+  deleteAPI,
+} from "../../components/helper/api";
 import {
   BASE_URL,
   INVOICES_ADD,
@@ -17,9 +22,12 @@ import {
   INVOICES_UPDATE,
   INVOICES_DELETE,
   CUSTOMERS_LIST_DROPDOWN,
-  STOCKS_LIST_DROPDOWN
+  STOCKS_LIST_DROPDOWN,
 } from "../../components/helper/urls";
-import { addActionToData, updateDateFormat } from "../../components/helper/utils";
+import {
+  addActionToData,
+  updateDateFormat,
+} from "../../components/helper/utils";
 
 const Invoices = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -27,7 +35,7 @@ const Invoices = () => {
   const [submitData, setSubmitData] = useState<ObjectData>({});
   const [isEdit, setEdit] = useState<boolean>(false);
   const [invoices, setInvoices] = useState<ObjectData>({
-    width: ["80px", "100px", "100px", "100px", "100px", "100px", "80px"],
+    width: ["50px", "100px", "100px", "150px", "100px", "100px", "80px"],
     headers: [
       "S. No",
       "Date",
@@ -35,6 +43,7 @@ const Invoices = () => {
       "Customer Name",
       "Item Name",
       "Items Count",
+      "Price",
       "Actions",
     ],
     data: [],
@@ -49,8 +58,8 @@ const Invoices = () => {
   }, []);
 
   useEffect(() => {
-    mergeDropDownData()
-  }, [customersDropdown, stocksDropdown])
+    mergeDropDownData();
+  }, [customersDropdown, stocksDropdown]);
 
   const getInvoices = () => {
     getAPI({
@@ -59,7 +68,7 @@ const Invoices = () => {
       params: {},
       callback: (response) => {
         if (response.status == 200) {
-          const dateFormated = updateDateFormat(response.data.data)
+          const dateFormated = updateDateFormat(response.data.data);
           const dataWithAction = addActionToData(dateFormated);
           setInvoices({ ...invoices, data: dataWithAction });
         } else {
@@ -77,7 +86,7 @@ const Invoices = () => {
       callback: (response) => {
         if (response.status == 200) {
           const stocksDropDownWithKey: ObjectData = {
-            "item_id": response.data.data
+            item_id: response.data.data,
           };
           setStocksDropdown(stocksDropDownWithKey);
         } else {
@@ -85,7 +94,7 @@ const Invoices = () => {
         }
       },
     });
-  }
+  };
 
   const getCustomersDropdown = () => {
     getAPI({
@@ -95,7 +104,7 @@ const Invoices = () => {
       callback: (response) => {
         if (response.status == 200) {
           const customersDropDownWithKey: ObjectData = {
-            "customer_id": response.data.data
+            customer_id: response.data.data,
           };
           setCustomersDropdown(customersDropDownWithKey);
         } else {
@@ -103,18 +112,21 @@ const Invoices = () => {
         }
       },
     });
-  }
+  };
 
   const getInvoicesDropdown = () => {
-    getStocksDropdown()
-    getCustomersDropdown()
+    getStocksDropdown();
+    getCustomersDropdown();
   };
 
   const mergeDropDownData = () => {
-    const dropDownOptions: ObjectData = {...stocksDropdown, ...customersDropdown}
-    setInvoicesDropdown(dropDownOptions)
-    console.log("invoice dropDownOptions: ", dropDownOptions)
-  }
+    const dropDownOptions: ObjectData = {
+      ...stocksDropdown,
+      ...customersDropdown,
+    };
+    setInvoicesDropdown(dropDownOptions);
+    console.log("invoice dropDownOptions: ", dropDownOptions);
+  };
 
   const postInvoices = (data: ObjectData) => {
     postAPI({
@@ -173,7 +185,7 @@ const Invoices = () => {
     } else {
       postInvoices(data);
     }
-  };      
+  };
 
   const handleEdit = (data: ObjectData) => {
     setEdit(true);
