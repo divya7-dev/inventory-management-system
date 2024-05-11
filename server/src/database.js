@@ -186,7 +186,7 @@ export async function getCustomersDropdown() {
 export async function getInvoices() {
   try {
     const [data] = await pool.query(`
-      SELECT invoices.id, invoices.date, invoices.invoice_number, customers.id AS customer_id, customers.name AS customer_name, stocks.item_name, stocks.id as item_id, invoices.items_count
+      SELECT invoices.id, invoices.date, invoices.invoice_number, customers.id AS customer_id, customers.name AS customer_name, stocks.item_name, stocks.id as item_id, invoices.items_count, invoices.price
       FROM invoices
       INNER JOIN customers ON invoices.customer_id = customers.id
       INNER JOIN stocks ON invoices.item_id = stocks.id
@@ -214,8 +214,8 @@ export async function addInvoices(invoiceData) {
       .replace("T", " ");
 
     const query = `
-      INSERT INTO invoices (date, invoice_number, customer_id, item_id, items_count)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO invoices (date, invoice_number, customer_id, item_id, items_count, price)
+      VALUES (?, ?, ?, ?, ?, ?)
     `;
     const values = [
       currentDateUTC,
@@ -223,6 +223,7 @@ export async function addInvoices(invoiceData) {
       invoiceData.customer_id,
       invoiceData.item_id,
       invoiceData.items_count,
+      invoiceData.price
     ];
 
     await pool.query(query, values);
@@ -239,7 +240,7 @@ export async function updateInvoices(invoiceData) {
     await updateStocksOnHand(invoiceData.item_id, updatedStocksOnHand);
 
     const invoicesQuery = `
-      UPDATE invoices SET invoice_number = ?, customer_id = ?, item_id = ?, items_count = ?
+      UPDATE invoices SET invoice_number = ?, customer_id = ?, item_id = ?, items_count = ?, price = ?
       WHERE id = ?
     `;
     const values = [
@@ -247,6 +248,7 @@ export async function updateInvoices(invoiceData) {
       invoiceData.customer_id,
       invoiceData.item_id,
       invoiceData.items_count,
+      invoiceData.price,
       invoiceData.id,
     ];
 

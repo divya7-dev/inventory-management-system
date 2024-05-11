@@ -63,3 +63,6 @@ ALTER TABLE bills
     ADD item_id INT,
     ADD items_count INT,
     ADD CONSTRAINT FOREIGN KEY(item_id) REFERENCES stocks(id);
+
+-- Add price column to invoices table --
+ALTER TABLE invoices ADD price FLOAT(8, 2);
