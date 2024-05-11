@@ -63,7 +63,7 @@ export default function Table({
                       style={{ maxWidth: tableData.width[childIndex] }}
                     >
                       {tableObj[item]}
-                      {item == "price" && " INR"}
+                      {item.includes("price") && " INR"}
                       {item == "percentage" && " %"}
                       {item == "actions" && (
                         <div className="flex items-center justify-start gap-2">

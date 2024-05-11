@@ -33,7 +33,7 @@ const Stocks = () => {
       "SKU (Part Number)",
       "Opening Stocks",
       "Stocks On Hand",
-      "Price",
+      "Cost Price",
       "Actions",
     ],
     data: [],

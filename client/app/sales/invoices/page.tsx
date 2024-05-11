@@ -43,7 +43,7 @@ const Invoices = () => {
       "Customer Name",
       "Item Name",
       "Items Count",
-      "Price",
+      "Sales Price",
       "Actions",
     ],
     data: [],
