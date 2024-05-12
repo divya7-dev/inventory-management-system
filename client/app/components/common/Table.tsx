@@ -2,6 +2,8 @@ import { ObjectData } from "../helper/types";
 import Image from "next/image";
 import bin from "../../../public/images/bin.png";
 import edit from "../../../public/images/pen.png";
+import increase from "../../../public/images/increase.png";
+import decrease from "../../../public/images/decrease.png";
 import { useState } from "react";
 import DeletePopUp from "../common/DeletePopUp";
 
@@ -62,9 +64,25 @@ export default function Table({
                       className="text-left text-[14px] font-['Figtree-Regular'] pl-4 py-2"
                       style={{ maxWidth: tableData.width[childIndex] }}
                     >
-                      {tableObj[item]}
+                      {item != "status" && tableObj[item]}
                       {item.includes("price") && " INR"}
                       {item == "percentage" && " %"}
+                      {item == "status" && (
+                        <div>
+                          {tableObj[item] != "" && (
+                            <Image
+                              width={20}
+                              height={20}
+                              src={
+                                tableObj[item] == "Loss" ? decrease : increase
+                              }
+                              alt="edit button"
+                              className="cursor-pointer"
+                              onClick={() => onEdit(tableObj)}
+                            />
+                          )}
+                        </div>
+                      )}
                       {item == "actions" && (
                         <div className="flex items-center justify-start gap-2">
                           <Image
@@ -89,7 +107,7 @@ export default function Table({
                         </div>
                       )}
                     </td>
-                  ),
+                  )
               )}
             </tr>
           ))}
