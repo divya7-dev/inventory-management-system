@@ -48,7 +48,12 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div>
+    <div className="relative">
+      <p className="absolute left-0 top-0 ml-10 mt-10 font-['Figtree-Medium'] text-[#5e9116] text-[20px]">
+        Inventory Management
+        <br />
+        System
+      </p>
       <div className="flex flex-row items-center h-screen bg-[#f2f2f2] px-10">
         <div className="flex: 1 w-[70%] h-full flex justify-center items-center px-32">
           <Image
