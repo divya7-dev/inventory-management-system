@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import eyeHidden from "../../../public/images/eye_hidden.png";
 import eyeOpen from "../../../public/images/eye_open.png";
+import loginBg from "../../../public/images/login_bg.jpg";
 import Image from "next/image";
 
 const LoginButton = ({
@@ -48,9 +49,16 @@ const Login = () => {
 
   return (
     <div>
-      <div className="flex justify-center items-center h-screen">
-        <div className="space-y-3 w-[450px]">
-          <div className="flex-1 rounded-lg bg-white px-6 pb-4 pt-8">
+      <div className="flex flex-row items-center h-screen bg-[#f2f2f2] px-10">
+        <div className="flex: 1 w-[70%] h-full flex justify-center items-center px-32">
+          <Image
+            src={loginBg}
+            alt="login background"
+            className="object-center w-full h-full"
+          />
+        </div>
+        <div className="flex: 1">
+          <div className="w-[450px] justify-center items-center rounded-lg bg-[#f2f2f2] px-6 pb-4 pt-8">
             <div className="w-full">
               <div>
                 <label
@@ -61,7 +69,7 @@ const Login = () => {
                 </label>
                 <div className="relative">
                   <input
-                    className="peer block w-full rounded-md border focus:outline-none border-gray-200 py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500"
+                    className="peer block w-full rounded-md border focus:outline-none border-gray-300 py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500 bg-[#f2f2f2]"
                     id="email"
                     type="email"
                     name="email"
@@ -80,9 +88,9 @@ const Login = () => {
                 >
                   Password
                 </label>
-                <div className="flex gap-3 items-center justify-center border border-gray-200 rounded-md">
+                <div className="flex gap-3 items-center justify-center border border-gray-300 rounded-md">
                   <input
-                    className="peer block w-full border-none rounded-md focus:outline-none py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500"
+                    className="peer block w-full border-none rounded-md focus:outline-none py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500 bg-[#f2f2f2]"
                     id="password"
                     type={showPassword ? "text" : "password"}
                     name="password"

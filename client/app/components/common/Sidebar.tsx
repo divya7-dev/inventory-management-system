@@ -3,6 +3,7 @@
 import React from "react";
 import { useState } from "react";
 import arrow from "../../../public/images/down_arrow.png";
+import loginBg from "../../../public/images/login_bg.jpg";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -19,8 +20,19 @@ function Sidebar() {
   return (
     <div className="flex-row rounded-lg h-screen bg-[#F3F8ED] w-52">
       <div className="text-[14px] gap-x-1.5 items-center text-[#050505] rounded-lg font-['Figtree-Regular'] ml-5">
-        <div className="text-[20px] font-['Figtree-Bold'] pl-1 py-6">
-          Dashboard
+        <div className="flex justify-center items-center gap-1 text-[20px] font-['Figtree-Bold'] pl-1 py-6">
+          <div>
+            <Image
+              width={50}
+              height={50}
+              src={loginBg}
+              alt="login background"
+              className="object-center"
+            />
+          </div >
+          <div className="flex-1">
+            <p>Inventory</p>
+          </div>
         </div>
         <a
           href="/stocks"
