@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import eyeHidden from "../../../public/images/eye_hidden.png";
 import eyeOpen from "../../../public/images/eye_open.png";
-import loginBg from "../../../public/images/login_bg.jpg";
 import Image from "next/image";
+import loginBg from "../../../public/images/login_bg_removebg.png";
+import bgHexegon from "../../../public/images/bg_hexegon.jpg";
 
 const LoginButton = ({
   email,
@@ -33,7 +34,7 @@ const LoginButton = ({
 
   return (
     <button
-      className="mt-10 w-full bg-[#80B537] text-center text-[#ffffff] rounded-md p-[9px]"
+      className="mt-10 w-full bg-[#80B537] text-center text-[#ffffff] rounded-md p-[9px] relative"
       aria-disabled={pending}
       onClick={handleLogin}
     >
@@ -49,20 +50,32 @@ const Login = () => {
 
   return (
     <div className="relative">
-      <p className="absolute left-0 top-0 ml-10 mt-10 font-['Figtree-Medium'] text-[#5e9116] text-[20px]">
-        Inventory Management
-        <br />
-        System
-      </p>
-      <div className="flex flex-row items-center h-screen bg-[#f2f2f2] px-10">
-        <div className="flex: 1 w-[70%] h-full flex justify-center items-center px-32">
+      <div className="absolute w-[100%] h-[100%]">
+        <Image
+          src={bgHexegon}
+          alt="login background"
+          className="object-center w-[100%] h-[100%] opacity-5"
+        />
+      </div>
+      <div className="flex flex-row absolute ml-5 mt-5 left-0 top-0">
+        <div>
           <Image
+            width={90}
+            height={90}
             src={loginBg}
             alt="login background"
-            className="object-center w-full h-full"
+            className="object-center"
           />
         </div>
-        <div className="flex: 1">
+        <p className="flex justify-center items-center font-['Figtree-Medium'] text-[#5e9116] text-[20px]">
+          Inventory Management
+          <br />
+          System
+        </p>
+      </div>
+
+      <div className="flex justify-center items-center h-screen bg-[#f2f2f2] ">
+        <div>
           <div className="w-[450px] justify-center items-center rounded-lg bg-[#f2f2f2] px-6 pb-4 pt-8">
             <div className="w-full">
               <div>
@@ -93,7 +106,7 @@ const Login = () => {
                 >
                   Password
                 </label>
-                <div className="flex gap-3 items-center justify-center border border-gray-300 rounded-md">
+                <div className="flex gap-3 items-center justify-center border border-gray-300 rounded-md relative">
                   <input
                     className="peer block w-full border-none rounded-md focus:outline-none py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500 bg-[#f2f2f2]"
                     id="password"

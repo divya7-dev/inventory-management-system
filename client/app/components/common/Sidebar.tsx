@@ -11,26 +11,26 @@ function Sidebar() {
   const pathname = usePathname();
 
   const [isSalesClicked, setSalesClick] = useState<boolean>(
-    pathname.includes("sales"),
+    pathname.includes("sales")
   );
   const [isPurchaseClicked, setPurchaseClick] = useState<boolean>(
-    pathname.includes("purchases"),
+    pathname.includes("purchases")
   );
 
   return (
     <div className="flex-row rounded-lg h-screen bg-[#F3F8ED] w-52">
-      <div className="text-[14px] gap-x-1.5 items-center text-[#050505] rounded-lg font-['Figtree-Regular'] ml-5">
-        <div className="flex justify-start items-center gap-1 text-[20px] font-['Figtree-Bold'] pl-1 py-6">
-          <div>
-            <Image
-              width={60}
-              height={60}
-              src={loginBg}
-              alt="login background"
-              className="object-center"
-            />
-          </div >
+      <div className="flex justify-center items-center gap-1 text-[20px] font-['Figtree-Bold'] py-6">
+        <div>
+          <Image
+            width={90}
+            height={90}
+            src={loginBg}
+            alt="login background"
+            className="object-center"
+          />
         </div>
+      </div>
+      <div className="text-[14px] gap-x-1.5 items-center text-[#050505] rounded-lg font-['Figtree-Regular'] ml-5">
         <a
           href="/stocks"
           className={`${pathname === "/stocks" && "font-['Figtree-Bold']"} border-b p-1 border-[#F0F0EF] block hover:bg-[#80B537]`}

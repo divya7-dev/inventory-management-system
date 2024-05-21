@@ -25,6 +25,8 @@ export default function Table({
     }
   };
 
+  console.log(tableData);
+
   return (
     <div className="mt-3">
       <table className="w-full ">
@@ -64,23 +66,27 @@ export default function Table({
                       className="text-left text-[14px] font-['Figtree-Regular'] pl-4 py-2"
                       style={{ maxWidth: tableData.width[childIndex] }}
                     >
-                      {item != "status" && tableObj[item]}
+                      {item != "percentage" && tableObj[item]}
                       {item.includes("price") && " INR"}
-                      {item == "percentage" && " %"}
-                      {item == "status" && (
-                        <div>
-                          {tableObj[item] != "" && (
-                            <Image
-                              width={20}
-                              height={20}
-                              src={
-                                tableObj[item] == "Loss" ? decrease : increase
-                              }
-                              alt="edit button"
-                              className="cursor-pointer"
-                              onClick={() => onEdit(tableObj)}
-                            />
-                          )}
+                      {item == "percentage" && (
+                        <div className="flex justify-start items-center gap-2">
+                          <div>
+                            {tableObj[item] != "" && (
+                              <Image
+                                width={20}
+                                height={20}
+                                src={
+                                  tableObj.status == "Loss"
+                                    ? decrease
+                                    : increase
+                                }
+                                alt="edit button"
+                                className="cursor-pointer"
+                                onClick={() => onEdit(tableObj)}
+                              />
+                            )}
+                          </div>
+                          <div>{tableObj[item]} %</div>
                         </div>
                       )}
                       {item == "actions" && (
