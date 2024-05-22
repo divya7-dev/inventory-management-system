@@ -6,7 +6,7 @@ import { useState } from "react";
 import eyeHidden from "../../../public/images/eye_hidden.png";
 import eyeOpen from "../../../public/images/eye_open.png";
 import Image from "next/image";
-import loginBg from "../../../public/images/login_bg_removebg.png";
+import loginBg from "../../../public/images/login_bg.jpg";
 import bgHexegon from "../../../public/images/bg_hexegon.jpg";
 
 const LoginButton = ({
@@ -49,34 +49,28 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="relative">
-      <div className="absolute w-[100%] h-[100%]">
-        <Image
-          src={bgHexegon}
-          alt="login background"
-          className="object-center w-[100%] h-[100%] opacity-5"
-        />
-      </div>
-      <div className="flex flex-row absolute ml-5 mt-5 left-0 top-0">
-        <div>
-          <Image
-            width={90}
-            height={90}
-            src={loginBg}
-            alt="login background"
-            className="object-center"
-          />
+    <div className="flex ">
+      <div className="w-[65%] bg-[#5e9116]">
+        <div className="flex flex-row gap-10 justify-center items-center h-screen">
+          <div>
+            <Image
+              width={130}
+              height={130}
+              src={loginBg}
+              alt="login background"
+              className="object-center"
+            />
+          </div>
+          <p className="flex font-['Figtree-Medium'] text-white text-[40px]">
+            Inventory Management
+            <br />
+            System
+          </p>
         </div>
-        <p className="flex justify-center items-center font-['Figtree-Medium'] text-[#5e9116] text-[20px]">
-          Inventory Management
-          <br />
-          System
-        </p>
       </div>
-
-      <div className="flex justify-center items-center h-screen bg-[#f2f2f2] ">
-        <div>
-          <div className="w-[450px] justify-center items-center rounded-lg bg-[#f2f2f2] px-6 pb-4 pt-8">
+      <div className="flex-1">
+        <div className="flex flex-row justify-center items-center h-screen">
+          <div className="w-full rounded-lg p-10">
             <div className="w-full">
               <div>
                 <label
@@ -87,7 +81,7 @@ const Login = () => {
                 </label>
                 <div className="relative">
                   <input
-                    className="peer block w-full rounded-md border focus:outline-none border-gray-300 py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500 bg-[#f2f2f2]"
+                    className="peer block w-full rounded-md border focus:outline-none border-gray-300 py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500"
                     id="email"
                     type="email"
                     name="email"
@@ -108,7 +102,7 @@ const Login = () => {
                 </label>
                 <div className="flex gap-3 items-center justify-center border border-gray-300 rounded-md relative">
                   <input
-                    className="peer block w-full border-none rounded-md focus:outline-none py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500 bg-[#f2f2f2]"
+                    className="peer block w-full border-none rounded-md focus:outline-none py-[9px] pl-5 text-sm outline-2 placeholder:text-gray-500"
                     id="password"
                     type={showPassword ? "text" : "password"}
                     name="password"
