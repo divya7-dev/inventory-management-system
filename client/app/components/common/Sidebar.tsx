@@ -3,7 +3,7 @@
 import React from "react";
 import { useState } from "react";
 import arrow from "../../../public/images/down_arrow.png";
-import loginBg from "../../../public/images/login_bg_removebg.png";
+// import loginBg from "../../../public/images/login_bg_removebg.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -11,15 +11,15 @@ function Sidebar() {
   const pathname = usePathname();
 
   const [isSalesClicked, setSalesClick] = useState<boolean>(
-    pathname.includes("sales")
+    pathname.includes("sales"),
   );
   const [isPurchaseClicked, setPurchaseClick] = useState<boolean>(
-    pathname.includes("purchases")
+    pathname.includes("purchases"),
   );
 
   return (
     <div className="flex-row rounded-lg h-screen bg-[#F3F8ED] w-52">
-      <div className="flex justify-center items-center gap-1 text-[20px] font-['Figtree-Bold'] py-6">
+      {/* <div className="flex justify-center items-center gap-1 text-[20px] font-['Figtree-Bold'] py-6">
         <div>
           <Image
             width={90}
@@ -29,13 +29,16 @@ function Sidebar() {
             className="object-center"
           />
         </div>
-      </div>
-      <div className="text-[14px] gap-x-1.5 items-center text-[#050505] rounded-lg font-['Figtree-Regular'] ml-5">
+      </div> */}
+      <p className="text-[#050505] text-[20px] font-['Figtree-Bold'] text-center pt-7">
+        Inventory
+      </p>
+      <div className="text-[14px] gap-x-1.5 items-center text-[#050505] rounded-lg font-['Figtree-Regular'] ml-5 pt-7">
         <a
           href="/stocks"
           className={`${pathname === "/stocks" && "font-['Figtree-Bold']"} border-b p-1 border-[#F0F0EF] block hover:bg-[#80B537]`}
         >
-          Stock
+          Stocks
         </a>
 
         <div
@@ -58,7 +61,7 @@ function Sidebar() {
               href="/sales/customers"
               className={`border-b p-1 border-[#F0F0EF] block hover:bg-[#80B537] ${pathname == "/sales/customers" && "font-['Figtree-Bold']"}`}
             >
-              Customer
+              Customers
             </a>
             <a
               href="/sales/invoices"

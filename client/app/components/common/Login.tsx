@@ -7,7 +7,7 @@ import eyeHidden from "../../../public/images/eye_hidden.png";
 import eyeOpen from "../../../public/images/eye_open.png";
 import Image from "next/image";
 import loginBg from "../../../public/images/login_bg.jpg";
-import bgHexegon from "../../../public/images/bg_hexegon.jpg";
+// import bgHexegon from "../../../public/images/bg_hexegon.jpg";
 
 const LoginButton = ({
   email,
@@ -51,8 +51,8 @@ const Login = () => {
   return (
     <div className="flex ">
       <div className="w-[65%] bg-[#5e9116]">
-        <div className="flex flex-row gap-10 justify-center items-center h-screen">
-          <div>
+        <div className="flex flex-col gap-10 justify-center items-center h-screen">
+          {/* <div>
             <Image
               width={130}
               height={130}
@@ -60,12 +60,21 @@ const Login = () => {
               alt="login background"
               className="object-center"
             />
-          </div>
-          <p className="flex font-['Figtree-Medium'] text-white text-[40px]">
+          </div> */}
+          <p className="uppercase flex font-['Figtree-Bold'] text-white text-[45px] text-center">
             Inventory Management
             <br />
             System
           </p>
+          <div>
+            <Image
+              width={120}
+              height={120}
+              src={loginBg}
+              alt="login background"
+              className="object-center"
+            />
+          </div>
         </div>
       </div>
       <div className="flex-1">

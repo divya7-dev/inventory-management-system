@@ -70,6 +70,7 @@ export default function Table({
                       {item.includes("price") && " INR"}
                       {item == "percentage" && (
                         <div className="flex justify-start items-center gap-2">
+                          <div>{tableObj[item]} %</div>
                           <div>
                             {tableObj[item] != "" && (
                               <Image
@@ -86,7 +87,6 @@ export default function Table({
                               />
                             )}
                           </div>
-                          <div>{tableObj[item]} %</div>
                         </div>
                       )}
                       {item == "actions" && (
@@ -113,7 +113,7 @@ export default function Table({
                         </div>
                       )}
                     </td>
-                  )
+                  ),
               )}
             </tr>
           ))}
